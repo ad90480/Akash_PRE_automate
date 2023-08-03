@@ -21,11 +21,10 @@ public class AdminAddUserDef {
         this.addUser.adduserbutton();
     }
 
-    @When("user fill the details {string},{string},{string},{string} and {string}")
-    public void userFillTheDetailsFirstNameLastNameUsernameEmailAndPhone(String Fn, String Ln, String Un, String Email, String Pn) {
+    @When("user fill the details {string},{string},{string} and {string}")
+    public void userFillTheDetailsFirstNameLastNameEmailAndPhone(String Fn, String Ln, String Email, String Pn) {
         this.addUser.firstname(Fn);
         this.addUser.lastname(Ln);
-        this.addUser.username(Un);
         this.addUser.email(Email);
         this.addUser.phone(Pn);
     }
@@ -34,6 +33,8 @@ public class AdminAddUserDef {
     public void clickOnSubmitButton() {
         this.addUser.submitbutton();
         this.addUser.verifytoastmsg();
+        this.addUser.edituser();
+
     }
 
 }

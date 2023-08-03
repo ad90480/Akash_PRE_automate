@@ -11,11 +11,12 @@ import org.junit.runner.RunWith;
         plugin = {
                 "pretty",
                 "json:target/cucumber-reports/cucumber-report.json",
-                "json:target/cucumber-reports/cucumber-report.json"
+                "html:target/cucumber-reports/cucumber-report.html"
         },
+        dryRun = true,
         monochrome = true,
         snippets = CucumberOptions.SnippetType.CAMELCASE,
-        tags = "@test2",
+        tags = "@test3",
         stepNotifications = true
 )
 public class TestRunner {
