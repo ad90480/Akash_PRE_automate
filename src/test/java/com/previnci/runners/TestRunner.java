@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
                 "json:target/cucumber-reports/cucumber-report.json",
                 "html:target/cucumber-reports/cucumber-report.html"
         },
-        dryRun = true,
+        dryRun = false,
         monochrome = true,
         snippets = CucumberOptions.SnippetType.CAMELCASE,
         tags = "@test3",
