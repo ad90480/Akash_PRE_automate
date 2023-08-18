@@ -1,25 +1,25 @@
 package com.previnci.pages;
 
 import com.previnci.core.PageGenerator;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 
 public class BasePage extends PageGenerator {
+
+
+
     public BasePage(WebDriver driver) {
         super(driver);
     }
 
     public FluentWait<WebDriver> waitUntil(Duration timeout, Duration polling) {
-        return new FluentWait<>(driver)
-                .withTimeout(timeout)
-                .pollingEvery(polling)
-                .ignoring(NoSuchElementException.class);
+        return new FluentWait<>(driver).withTimeout(timeout).pollingEvery(polling).ignoring(NoSuchElementException.class);
     }
 
     protected FluentWait<WebDriver> waitUntil() {
@@ -80,5 +80,21 @@ public class BasePage extends PageGenerator {
         element.clear();
         element.sendKeys(text);
         super.driver.findElement((By.cssSelector("body"))).click();
+    }
+
+    public String randomString() {
+        String generatedString = RandomStringUtils.randomAlphabetic(5);
+        return (generatedString);
+    }
+
+    public String randomNumber() {
+        String generatedNumber = RandomStringUtils.randomNumeric(5);
+        return (generatedNumber);
+    }
+
+    public String randomAlphanumeric() {
+        String st = RandomStringUtils.randomAlphabetic(4);
+        String num = RandomStringUtils.randomNumeric(3);
+        return (st + "@" + num);
     }
 }

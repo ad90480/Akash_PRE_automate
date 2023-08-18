@@ -22,8 +22,6 @@ public class AddUser extends BasePage {
     private WebElement useremail;
     @FindBy(how = How.XPATH, using = "(//div//previnci-input//input)[4]")
     private WebElement userphone;
-    @FindBy(how = How.XPATH, using = "//previnci-buttons[@label=\"Submit\"]")
-    private WebElement usersubmit;
     @FindBy(how = How.XPATH, using = "//*[contains(text(),'Account has been created successfully')]")
     private WebElement toastmsg;
     @FindBy(how = How.XPATH, using = "(//previnci-buttons[@label=\"Edit\"])[1]")
@@ -59,21 +57,21 @@ public class AddUser extends BasePage {
         super.writeText(userlastname, Ln);
     }
 
-    public void email(String email) {
-        super.writeText(this.useremail, email);
+    public void email() {
+        super.writeText(this.useremail,randomString()+"@gmail.com");
     }
 
     public void phone(String Pn) {
         super.writeText(this.userphone, Pn);
     }
 
-    public void submitbutton() {
-
-        super.click(this.usersubmit);
-        //waitUntil(6);
-        waitUntil().until(ExpectedConditions.visibilityOf(toastmsg));
-        System.out.println(this.toastmsg.getText());
-    }
+//    public void submitbutton() {
+//
+//        super.click(this.usersubmit);
+//        //waitUntil(6);
+//        waitUntil().until(ExpectedConditions.visibilityOf(toastmsg));
+//        System.out.println(this.toastmsg.getText());
+//    }
 
     public void verifytoastmsg() {
         System.out.println(this.toastmsg.getText());
