@@ -17,7 +17,7 @@ public class PageManager {
         this.pageGenerator.driver.quit();
     }
 
-    public void initialisePageGenerator() {
+    public void initialisePageGenerator(){
         this.pageGenerator = new PageGenerator(new DriverSupplier().initializeDriver());
     }
 

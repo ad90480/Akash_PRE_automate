@@ -33,8 +33,7 @@ public class DriverSupplier {
         options.addArguments("--verbose");
         options.addArguments("--no-sandbox");
         options.setUnhandledPromptBehaviour(UnexpectedAlertBehaviour.IGNORE);
-        WebDriverManager.chromedriver().setup();
-
+        WebDriverManager.chromedriver().browserVersion("114").setup();
         return (WebDriver) new ChromeDriver(options);
     };
 
@@ -42,7 +41,7 @@ public class DriverSupplier {
         driverMap.put(DriverType.CHROME, chromeDriverSupplier);
     }
 
-    public void invokeApplication() {
+    public void invokeApplication()  {
         switch (browser) {
             case "chrome":
                 driverType = DriverType.CHROME;
