@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 
 public class AddUser extends BasePage {
@@ -22,7 +21,7 @@ public class AddUser extends BasePage {
     private WebElement useremail;
     @FindBy(how = How.XPATH, using = "(//div//previnci-input//input)[4]")
     private WebElement userphone;
-    @FindBy(how = How.XPATH, using = "//*[contains(text(),'Account has been created successfully')]")
+    @FindBy(how = How.LINK_TEXT, using = "//*[contains(text(),'User created successfully.')]")
     private WebElement toastmsg;
     @FindBy(how = How.XPATH, using = "(//previnci-buttons[@label=\"Edit\"])[1]")
     private WebElement edituser;
@@ -58,25 +57,23 @@ public class AddUser extends BasePage {
     }
 
     public void email() {
-        super.writeText(this.useremail,randomString()+"@gmail.com");
+        super.writeText(this.useremail, randomString() + "@gmail.com");
     }
 
     public void phone(String Pn) {
         super.writeText(this.userphone, Pn);
     }
 
-//    public void submitbutton() {
-//
-//        super.click(this.usersubmit);
-//        //waitUntil(6);
-//        waitUntil().until(ExpectedConditions.visibilityOf(toastmsg));
-//        System.out.println(this.toastmsg.getText());
-//    }
 
     public void verifytoastmsg() {
-        System.out.println(this.toastmsg.getText());
-        Assert.assertEquals("Account has been created successfully.", this.toastmsg.getText(), "Account has been created successfully.");
+
+        waitForPageToReload(10);
+        String expectedToastMessage = "User created successfully.";
+        String actualToastMessage = this.toastmsg.getText();
+        System.out.println(actualToastMessage);
+        Assert.assertEquals(expectedToastMessage, actualToastMessage);
     }
+
 
     public void edituser() {
         super.click(this.edituser);

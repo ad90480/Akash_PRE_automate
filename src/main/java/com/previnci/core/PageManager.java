@@ -1,27 +1,39 @@
 package com.previnci.core;
 
-public class PageManager {
+import org.openqa.selenium.WebDriver;
+
+public class PageManager  {
 
     private static ThreadLocal<PageManager> INSTANCE = ThreadLocal.withInitial(PageManager::new);
     private PageGenerator pageGenerator;
 
-    public static synchronized PageManager getInstance() {
+    private PageManager() {
+        // Private constructor to prevent instantiation from outside
+    }
+
+    public static PageManager getInstance() {
         return INSTANCE.get();
     }
 
-    public static synchronized void cleanUp() {
+    public static void cleanUp() {
         INSTANCE.remove();
     }
 
     public void closeDriver() {
-        this.pageGenerator.driver.quit();
+        if (pageGenerator != null && pageGenerator.driver != null) {
+            pageGenerator.driver.quit();
+        }
     }
 
-    public void initialisePageGenerator(){
-        this.pageGenerator = new PageGenerator(new DriverSupplier().initializeDriver());
+    public void initialisePageGenerator() {
+        WebDriver driver = new DriverSupplier().initializeDriver();
+        this.pageGenerator = new PageGenerator(driver);
     }
 
     public PageGenerator getPageGenerator() {
+        if (pageGenerator == null) {
+            throw new IllegalStateException("PageGenerator is not initialized. Call initialisePageGenerator() first.");
+        }
         return this.pageGenerator;
     }
 

@@ -9,15 +9,17 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.function.Supplier;
 
-public class DriverSupplier {
+public class DriverSupplier  {
+
+    ResourceBundle rb = ResourceBundle.getBundle("config");
 
     private final String browser = System.getProperty("browser");
-    private final String appUrl = System.getProperty("loganAppUrl");
+    private final String appUrl = rb.getString("appURL");
     private static final Map<DriverType, Supplier<WebDriver>> driverMap = new HashMap<>();
-    public WebDriver driver;
-    public DriverType driverType;
+    private WebDriver driver;
 
     public WebDriver initializeDriver() {
         invokeApplication();
@@ -26,28 +28,26 @@ public class DriverSupplier {
 
     private static final Supplier<WebDriver> chromeDriverSupplier = () -> {
         ChromeOptions options = new ChromeOptions();
+        WebDriverManager.chromedriver().setup(); // Automatically downloads the latest ChromeDriver version
         options.addArguments("--start-maximized");
-        options.addArguments("--remote-allow-origins=*");
         options.addArguments("--ignore-certificate-errors");
         options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--verbose");
         options.addArguments("--no-sandbox");
+        options.setExperimentalOption("excludeSwitches",new String[]{"enable-automation"});
         options.setUnhandledPromptBehaviour(UnexpectedAlertBehaviour.IGNORE);
-        WebDriverManager.chromedriver().browserVersion("114").setup();
-        return (WebDriver) new ChromeDriver(options);
+        return new ChromeDriver(options);
     };
 
     static {
-        driverMap.put(DriverType.CHROME, chromeDriverSupplier);
+        driverMap.put(DriverType.CHROME, chromeDriverSupplier); // Assuming DriverType.CHROME exists
     }
 
-    public void invokeApplication()  {
-        switch (browser) {
-            case "chrome":
-                driverType = DriverType.CHROME;
-                break;
-            default:
-                throw new WebDriverException("Unsupported browser type");
+    public void invokeApplication() {
+        DriverType driverType;
+        if (browser.equals("chrome")) {
+            driverType = DriverType.CHROME;
+        } else {
+            throw new WebDriverException("Unsupported browser type");
         }
 
         driver = driverMap.get(driverType).get();

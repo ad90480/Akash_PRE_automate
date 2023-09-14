@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
+
 public class PageGenerator {
     public WebDriver driver;
 
@@ -16,8 +17,7 @@ public class PageGenerator {
         return PageFactory.initElements(driver, pageClass);
     }
 
-    protected void click(WebElement String) {
-
+    protected void click(WebElement element) {
+        element.click();
     }
 }
-
