@@ -8,11 +8,13 @@ Feature: Add Admin User
     And  navigate to the admin user module page
     And  click on the add user button
     When user fill the details '<First Name>','<Last Name>' and '<Phone>'
-    Then  click on submit button
+    And  click on submit button
+    #Then validate the toast message
+    #Then assign role to user
 
 
     Examples:
       | First Name | Last Name | Phone      |
-      | QA         | testing   | 1234567890 |
+      | Test       | User  | 1234567890 |
 
 

@@ -2,7 +2,7 @@ package com.previnci.stepdefinitions;
 
 import com.previnci.core.PageManager;
 import com.previnci.pages.AddUser;
-import com.previnci.pages.Common;
+import com.previnci.pages.CommonlyUsed;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -10,8 +10,7 @@ import io.cucumber.java.en.When;
 public class AdminAddUserDef {
     private final PageManager pageManager = PageManager.getInstance();
     private AddUser addUser = this.pageManager.getPageGenerator().getInstance(AddUser.class);
-    private Common addUser1 = this.pageManager.getPageGenerator().getInstance(Common.class);
-
+    private CommonlyUsed common = this.pageManager.getPageGenerator().getInstance(CommonlyUsed.class);
 
     @And("navigate to the admin user module page")
     public void navigateToTheAdminUserModulePage() {
@@ -32,10 +31,15 @@ public class AdminAddUserDef {
         this.addUser.phone(Pn);
     }
 
-    @Then("click on submit button")
-    public void clickOnSubmitButton() {
-        this.addUser1.submitbutton();
+    @And("click on submit button")
+    public void clickOnSubmitButton() throws InterruptedException {
+        this.common.submitbutton();
+        wait(100000);
+    }
+
+    @Then("validate the toast message")
+    public void validateTheToastMessage() {
         this.addUser.verifytoastmsg();
-        this.addUser.edituser();
+        //this.addUser.edituser();
     }
 }

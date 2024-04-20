@@ -25,7 +25,7 @@ public class AddTenant extends BasePage{
     private WebElement selectstate;
     @FindBy(how = How.XPATH,using = "(//previnci-select)[2]")
     private WebElement openorgtypedd;
-    @FindBy(how = How.XPATH,using = "//a[.='Broker Agency']")
+    @FindBy(how = How.XPATH,using = "//a[.='TPA']")
     private WebElement selectorgtype;
     @FindBy(how = How.XPATH,using = "(//div//previnci-input//input)[8]")
     private WebElement phone;
@@ -33,8 +33,9 @@ public class AddTenant extends BasePage{
     private WebElement taxid;
     @FindBy(how = How.XPATH,using = "(//div//previnci-input//input)[10]")
     private WebElement SICcode;
-    @FindBy(how = How.XPATH,using = "//previnci-buttons[@ng-reflect-label=\"Submit\"]")
-    private WebElement clicksubmitbutton;
+
+   /* @FindBy(how = How.XPATH,using = "//previnci-buttons[@ng-reflect-label=\"Submit\"]")
+    private WebElement clicksubmitbutton;*/
     @FindBy(how = How.XPATH,using = "")
     private WebElement verifytoastmessage;
 
@@ -84,10 +85,10 @@ public class AddTenant extends BasePage{
         super.writeText(this.SICcode,FSIC);
 
     }
-    public void clickSubmit(){
+   /* public void clickSubmit(){
         super.click(this.clicksubmitbutton);
 
-    }
+    }*/
     public void verifyToastmessage(){
 
     }

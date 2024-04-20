@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.logan</groupId>
-    <artifactId>Previnci_Automation</artifactId>
+    <artifactId>pre-test-automation</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>logan-test-automation</name>
-    <url>https://www.test.loganconnect.com/login</url>
+    <name>pre-test-automation</name>
+    <url>https://dev.previnci.app/login</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -26,16 +26,18 @@
             <scope>test</scope>
         </dependency>
 
-
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>5.7.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>4.9.1</version>
+            <version>4.18.1</version>
         </dependency>
-        <dependency>
-            <groupId>io.github.bonigarcia</groupId>
-            <artifactId>webdrivermanager</artifactId><!-- Use the latest version -->
-        </dependency>
+
 
         <dependency>
             <groupId>io.cucumber</groupId>
@@ -59,7 +61,6 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.13.2</version>
-            <scope>compile</scope>
         </dependency>
 
 
@@ -88,9 +89,9 @@
                     <configuration>
                         <systemPropertyVariables>
                             <browser>chrome</browser>
-                            <loganAppUrl>https://dev.previnci.app/</loganAppUrl>
-                            <user>WaltDisney</user>
-                            <password>WaltDisney</password>
+                            <loganAppUrl>https://www.test.loganconnect.com/login</loganAppUrl>
+                            <user>Chp@neucleusx.io</user>
+                            <password>Fintech2@</password>
                         </systemPropertyVariables>
                     </configuration>
                 </plugin>
@@ -122,11 +123,10 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.8</source>
-                    <target>18</target>
+                    <source>8</source>
+                    <target>8</target>
                 </configuration>
             </plugin>
         </plugins>
     </build>
 </project>
-

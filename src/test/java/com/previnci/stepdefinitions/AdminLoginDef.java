@@ -2,6 +2,7 @@ package com.previnci.stepdefinitions;
 
 import com.previnci.core.PageManager;
 import com.previnci.pages.AdminLogin;
+import com.previnci.pages.CommonlyUsed;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;

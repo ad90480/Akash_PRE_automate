@@ -9,10 +9,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
+import java.util.ResourceBundle;
 
 public class BasePage extends PageGenerator {
 
-
+    ResourceBundle rb = ResourceBundle.getBundle("config");
 
     public BasePage(WebDriver driver) {
         super(driver);
