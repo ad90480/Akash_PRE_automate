@@ -17,6 +17,7 @@ public class CommonlyUsed extends BasePage {
 
     public void submitbutton() {
         super.click(this.Submitbutton);
+        waitForPageToReload(20);
 
     }
 

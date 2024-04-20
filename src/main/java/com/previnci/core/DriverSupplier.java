@@ -28,7 +28,8 @@ public class DriverSupplier  {
 
     private static final Supplier<WebDriver> chromeDriverSupplier = () -> {
         ChromeOptions options = new ChromeOptions();
-        WebDriverManager.chromedriver().setup(); // Automatically downloads the latest ChromeDriver version
+        WebDriverManager.chromedriver().clearDriverCache().setup();
+       // WebDriverManager.chromedriver().setup();  // Automatically downloads the latest ChromeDriver version
         options.addArguments("--start-maximized");
         options.addArguments("--ignore-certificate-errors");
         options.addArguments("--disable-dev-shm-usage");

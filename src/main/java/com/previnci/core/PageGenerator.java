@@ -16,8 +16,9 @@ public class PageGenerator {
     public <TPage extends BasePage> TPage getInstance(Class<TPage> pageClass) {
         return PageFactory.initElements(driver, pageClass);
     }
+}
 
-    protected void click(WebElement element) {
+   /* protected void click(WebElement element) {
         element.click();
     }
-}
+}*/

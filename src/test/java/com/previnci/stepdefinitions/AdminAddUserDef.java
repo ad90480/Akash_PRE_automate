@@ -32,8 +32,9 @@ public class AdminAddUserDef {
     }
 
     @And("click on submit button")
-    public void clickOnSubmitButton() {
+    public void clickOnSubmitButton() throws InterruptedException {
         this.common.submitbutton();
+        wait(100000);
     }
 
     @Then("validate the toast message")

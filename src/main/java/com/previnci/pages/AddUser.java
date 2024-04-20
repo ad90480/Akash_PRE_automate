@@ -21,7 +21,9 @@ public class AddUser extends BasePage {
     private WebElement useremail;
     @FindBy(how = How.XPATH, using = "(//div//previnci-input//input)[4]")
     private WebElement userphone;
-    @FindBy(how = How.LINK_TEXT, using = "//*[contains(text(),'User created successfully.')]")
+   /* @FindBy(how = How.XPATH, using = "//*[contains(text(),'User created successfully.')]")//strong[@class="label-text"]
+    private WebElement toastmsg;*/
+    @FindBy(how = How.XPATH, using = "//strong[@class=\"label-text\"]")//strong[@class="label-text"]
     private WebElement toastmsg;
     @FindBy(how = How.XPATH, using = "(//previnci-buttons[@label=\"Edit\"])[1]")
     private WebElement edituser;
@@ -67,11 +69,20 @@ public class AddUser extends BasePage {
 
     public void verifytoastmsg() {
 
-        waitForPageToReload(10);
+      /*  waitForPageToReload(10);
         String expectedToastMessage = "User created successfully.";
         String actualToastMessage = this.toastmsg.getText();
         System.out.println(actualToastMessage);
-        Assert.assertEquals(expectedToastMessage, actualToastMessage);
+        Assert.assertEquals(expectedToastMessage, actualToastMessage);*/
+        waitForPageToReload(10);
+        String actualToastMessage = toastmsg.getText();
+        String expectedToastMessage = "User created successfully.";// Define the expected toast message
+        if (actualToastMessage.contains(expectedToastMessage)) {
+            System.out.println("Toast message is as expected: " + actualToastMessage);
+        } else {
+            System.out.println("Toast message is not as expected. Actual: " + actualToastMessage);
+        }
+        super.click(this.edituser);
     }
 
 

@@ -4,12 +4,10 @@ import com.previnci.core.PageManager;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
-import org.apache.commons.io.FileUtils;
+import org.junit.Test;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -17,20 +15,21 @@ import java.nio.file.Paths;
 
 public class StepDefConfiguration {
 
-    @Before(value = "@gui", order = 0)
+   @Before(value = "@gui", order = 0)
     public void initPages() {
         PageManager.getInstance().initialisePageGenerator();
     }
+
     @After(order = 0, value = "@gui")
     public void clean(Scenario scenario) {
         if (scenario.isFailed()) {
-            // Save the screenshot to a specific directory
-            String screenshotDirectory = "target/screenshots";
+            String screenshotDirectory = "target/screenshots"; // Customize your screenshot directory
             String screenshotFileName = scenario.getName() + ".png";
             String screenshotFilePath = Paths.get(screenshotDirectory, screenshotFileName).toString();
 
             try {
-                byte[] screenshot = this.takeScreenshot();
+                WebDriver driver = PageManager.getInstance().getPageGenerator().driver;
+                byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
                 Files.write(Paths.get(screenshotFilePath), screenshot);
                 scenario.attach(screenshot, "image/png", screenshotFileName);
                 System.out.println("Screenshot saved to: " + screenshotFilePath);
@@ -38,16 +37,38 @@ public class StepDefConfiguration {
                 e.printStackTrace();
             }
         }
+
         PageManager.getInstance().closeDriver();
         PageManager.cleanUp();
     }
+}
+ /*  @After(order = 0, value = "@gui")
+    public void tearDown(Scenario scenario) {
+        if (scenario.isFailed()) {
+            try {
+                // Take a screenshot
+                File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+                String screenshotFileName = scenario.getName() + ".png";
+                String screenshotFilePath = "target/screenshots" + screenshotFileName;
 
-    private byte[] takeScreenshot() {
-        WebDriver driver = PageManager.getInstance().getPageGenerator().driver;
-        return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-    }
+                // Copy the screenshot to the desired location
+                org.apache.commons.io.FileUtils.copyFile(screenshot, new File(screenshotFilePath));
+                System.out.println("Screenshot saved to: " + screenshotFilePath);
 
-/*    @After(order = 0, value = "@gui")
+                // Attach the screenshot to the Cucumber report
+                scenario.attach(screenshotFileName, "image/png", scenario.getName());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        // Quit the WebDriver instance
+        if (driver != null) {
+            driver.quit();
+        }
+    }*/
+
+/*
+    @After(order = 0, value = "@gui")
     public void clean(Scenario scenario) {
         if (scenario.isFailed()) {
             scenario.attach(this.takeScreenshot(), "image/png", scenario.getName());
@@ -56,9 +77,9 @@ public class StepDefConfiguration {
         PageManager.cleanUp();
     }
 
-    private byte[] takeScreenshot(){
+    private byte[] takeScreenshot() {
         WebDriver driver = PageManager.getInstance().getPageGenerator().driver;
         return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
 
-    }*/
-}
+    }
+}*/
