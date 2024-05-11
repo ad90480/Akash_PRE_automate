@@ -8,8 +8,7 @@ public class PageManager  {
     private PageGenerator pageGenerator;
 
     private PageManager() {
-        // Private constructor to prevent instantiation from outside
-    }
+      }
 
     public static PageManager getInstance() {
         return INSTANCE.get();
@@ -36,5 +35,4 @@ public class PageManager  {
         }
         return this.pageGenerator;
     }
-
 }

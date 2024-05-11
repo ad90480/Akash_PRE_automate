@@ -6,40 +6,40 @@ import com.previnci.pages.CommonlyUsed;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.Assert;
 
 public class AdminAddUserDef {
     private final PageManager pageManager = PageManager.getInstance();
-    private AddUser addUser = this.pageManager.getPageGenerator().getInstance(AddUser.class);
-    private CommonlyUsed common = this.pageManager.getPageGenerator().getInstance(CommonlyUsed.class);
+    private final AddUser addUser = this.pageManager.getPageGenerator().getInstance(AddUser.class);
+    private final CommonlyUsed common = this.pageManager.getPageGenerator().getInstance(CommonlyUsed.class);
 
     @And("navigate to the admin user module page")
     public void navigateToTheAdminUserModulePage() {
-        this.addUser.usermodule();
-
+        this.addUser.userModule();
     }
 
     @And("click on the add user button")
     public void clickOnTheAddUserButton() {
-        this.addUser.adduserbutton();
+        this.addUser.addUserButton();
     }
 
-    @When("user fill the details {string},{string} and {string}")
-    public void userFillTheDetailsFirstNameLastNameAndPhone(String Fn, String Ln, String Pn) {
-        this.addUser.firstname(Fn);
-        this.addUser.lastname(Ln);
+    @When("user fill the details")
+    public void userFillTheDetails() {
+        this.addUser.firstName();
+        this.addUser.lastName();
         this.addUser.email();
-        this.addUser.phone(Pn);
+        this.addUser.phone();
     }
 
     @And("click on submit button")
-    public void clickOnSubmitButton() throws InterruptedException {
+    public void clickOnSubmitButton() {
         this.common.submitbutton();
-        wait(100000);
     }
 
     @Then("validate the toast message")
     public void validateTheToastMessage() {
-        this.addUser.verifytoastmsg();
-        //this.addUser.edituser();
+        String addUserToastMsg = this.addUser.verifyToastMsg();
+        Assert.assertEquals("User Created", "User created successfully.", addUserToastMsg);
+        System.out.println("User Created Validation" + addUserToastMsg);
     }
 }
