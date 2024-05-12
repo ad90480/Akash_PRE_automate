@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.FluentWait;
 import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import static org.junit.Assert.assertEquals;
@@ -23,11 +24,25 @@ public class BasePage extends PageGenerator {
 
     public BasePage(WebDriver driver) {
         super(driver);
+        //this.navigationHelper = new NavigationHelper(driver);
     }
 
     public static void highlightElement(WebDriver driver, WebElement element) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].setAttribute('style', 'border: 2px solid red;');", element);
+    }
+
+    public WebElement printListAndSelect(List<WebElement> list, boolean selectOption) {
+        System.out.println("List Items:");
+        for (int i = 0; i < list.size(); i++) {
+            WebElement item = list.get(i);
+            System.out.println((i + 1) + ". " + item.getText());
+            if (selectOption && i == 0) { // Optionally select the first element
+                System.out.println("Selected: " + item.getText());
+                return item; // Return the selected element
+            }
+        }
+        return null; // Return null if no element is selected
     }
 
     protected FluentWait<WebDriver> createFluentWait(Duration timeout, Duration polling) {
@@ -101,13 +116,26 @@ public class BasePage extends PageGenerator {
 
     public void assertElementDisplayed(WebElement element) {
         Assert.assertTrue("Element is not displayed", ElementUtils.isElementDisplayed(element));
+        System.out.println(element);
     }
 
-        public void assertTextEquals(WebElement element, String expectedText) {
+    public void assertTextEquals(WebElement element, Object expected) {
         String actualText = this.getText(element);
+        String expectedText;
+
+        if (expected instanceof WebElement) {
+            expectedText = this.getText((WebElement) expected);
+        } else if (expected instanceof String) {
+            expectedText = (String) expected;
+        } else {
+            throw new IllegalArgumentException("Expected text should be either WebElement or String");
+        }
+
         Assert.assertEquals("Text does not match", expectedText, actualText);
         System.out.println(actualText);
     }
+
+
     public void assertTitleEquals(String expectedTitle) {
         String actualTitle = driver.getTitle();
         assertEquals("Page title does not match", expectedTitle, actualTitle);

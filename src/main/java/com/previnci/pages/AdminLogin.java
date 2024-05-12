@@ -18,6 +18,8 @@ public class AdminLogin extends BasePage {
     private WebElement loginbuttotn;
     @FindBy(how = How.XPATH, using = "(//span[text()=\"Groups\"])[2]")
     private WebElement afterloggedin;
+    @FindBy(how = How.XPATH, using = "//a/img[@class=\"desktop-logo\"]")
+    private WebElement pageLogo;
 
     public AdminLogin(WebDriver driver) {
         super(driver);
@@ -37,6 +39,10 @@ public class AdminLogin extends BasePage {
 
     public WebElement loggedIn() {
         return afterloggedin;
+    }
+
+    public WebElement logoCheck() {
+        return pageLogo;
     }
 
     public void adminLoggedIn() {

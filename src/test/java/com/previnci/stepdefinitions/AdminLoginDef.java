@@ -34,7 +34,10 @@ public class AdminLoginDef {
     @Then("I should be logged in successfully")
     public void Ishouldbeloggedinsuccessfully() {
         WebElement actualText = this.adminLogin.loggedIn();
+        WebElement logo = this.adminLogin.logoCheck();
         basePage.assertTextEquals(actualText, "Groups");
+        basePage.assertTitleEquals("BeniComp");
+        basePage.assertElementDisplayed(logo);
         basePage.assertUrlEquals("https://benicomp.dev.previnci.app/groups");
     }
 

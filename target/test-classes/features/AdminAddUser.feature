@@ -9,8 +9,9 @@ Feature: Add Admin User
     And  click on the add user button
     When user fill the details
     And  click on submit button
-    Then validate the toast message
-   # Then assign role to user
+    And validate the toast message
+    And Validate email in user table
+    #Then assign role to user
 
 
 
