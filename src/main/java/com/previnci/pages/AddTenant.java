@@ -9,7 +9,7 @@ public class AddTenant extends BasePage{
 
     @FindBy(how = How.XPATH,using = "(//span[.='Tenants'])[1]")
     private WebElement tenantmodule;
-    @FindBy(how = How.XPATH,using = "//previnci-buttons[@ng-reflect-label=\"Add Tenant\"]")
+    @FindBy(how = How.XPATH,using = "//previnci-buttons[@label=\"Add new\"]")
     private WebElement addtenantbutton;
     @FindBy(how = How.XPATH,using = "(//div//previnci-input//input)[1]")
     private WebElement orgname;

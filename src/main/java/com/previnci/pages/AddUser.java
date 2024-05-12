@@ -1,17 +1,15 @@
 package com.previnci.pages;
 
-import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
-
 public class AddUser extends BasePage {
 
-    @FindBy(how = How.XPATH, using = "(//span[.='Users'])[1]")
+    @FindBy(how = How.XPATH, using = "(//span[@class=\"pvt-nav-link-text nested-title-text\"])[7]")
     private WebElement usermodule;
-    @FindBy(how = How.XPATH, using = "//previnci-buttons[@label=\"Add User\"]")
+    @FindBy(how = How.XPATH, using = "//div[@ng-reflect-fx-flex-align=\"start\"]")
     private WebElement adduserbutton;
     @FindBy(how = How.XPATH, using = "(//div//previnci-input//input)[1]")
     private WebElement userfirstname;
@@ -21,76 +19,56 @@ public class AddUser extends BasePage {
     private WebElement useremail;
     @FindBy(how = How.XPATH, using = "(//div//previnci-input//input)[4]")
     private WebElement userphone;
-   /* @FindBy(how = How.XPATH, using = "//*[contains(text(),'User created successfully.')]")//strong[@class="label-text"]
-    private WebElement toastmsg;*/
-    @FindBy(how = How.XPATH, using = "//strong[@class=\"label-text\"]")//strong[@class="label-text"]
+    @FindBy(how = How.XPATH, using = "//strong[text()=\"User created successfully.\"]")
     private WebElement toastmsg;
-    @FindBy(how = How.XPATH, using = "(//previnci-buttons[@label=\"Edit\"])[1]")
-    private WebElement edituser;
-    @FindBy(how = How.XPATH, using = "//previnci-buttons[@label=\"Assign Role\"]")
-    private WebElement assignrole;
-    @FindBy(how = How.XPATH, using = "//a/span[.='Select Role']")
-    private WebElement selectroledd;
-    @FindBy(how = How.XPATH, using = "//a[.='MA Dashboard']")
-    private WebElement chooserole;
-    @FindBy(how = How.XPATH, using = "//a[.='MA Dashboard']")
-    private WebElement submitrole;
+    @FindBy(how = How.XPATH, using = " (//td[@class=\"mat-mdc-cell mdc-data-table__cell cdk-cell pointer text-transform-none cdk-column-personalEmail mat-column-personalEmail ng-star-inserted\"])[1]")
+    private WebElement emailusertable;
+
+    private String filledUserEmail; // Declare a variable to store filled user email
 
     public AddUser(WebDriver driver) {
         super(driver);
     }
 
-    public void usermodule() {
+    public String getFilledUserEmail() {
+        return filledUserEmail;
+    }
+
+    public String randomEmail() {
+        filledUserEmail = randomString(5) + "@testemail.com";
+        return filledUserEmail;
+    }
+    public WebElement getEmailElement() {
+        return emailusertable; // Return the email element from the user table
+    }
+
+    public WebElement userModule() {
         super.click(this.usermodule);
-
+        return usermodule;
     }
 
-    public void adduserbutton() {
+    public void addUserButton() {
         super.click(this.adduserbutton);
-
     }
 
-    public void firstname(String Fn) {
-        super.writeText(userfirstname, Fn);
+    public void firstName() {
+        super.writeText(this.userfirstname, randomString(5));
     }
 
-    public void lastname(String Ln) {
-        super.writeText(userlastname, Ln);
+    public void lastName() {
+        super.writeText(this.userlastname, randomString(5));
     }
 
     public void email() {
-        super.writeText(this.useremail, randomString() + "@gmail.com");
+        super.writeText(this.useremail, randomEmail()); // Use randomEmail() to fill email
     }
 
-    public void phone(String Pn) {
-        super.writeText(this.userphone, Pn);
+    public void phone() {
+        super.writeText(this.userphone, randomNumber(10));
     }
 
-
-    public void verifytoastmsg() {
-
-      /*  waitForPageToReload(10);
-        String expectedToastMessage = "User created successfully.";
-        String actualToastMessage = this.toastmsg.getText();
-        System.out.println(actualToastMessage);
-        Assert.assertEquals(expectedToastMessage, actualToastMessage);*/
-        waitForPageToReload(10);
-        String actualToastMessage = toastmsg.getText();
-        String expectedToastMessage = "User created successfully.";// Define the expected toast message
-        if (actualToastMessage.contains(expectedToastMessage)) {
-            System.out.println("Toast message is as expected: " + actualToastMessage);
-        } else {
-            System.out.println("Toast message is not as expected. Actual: " + actualToastMessage);
-        }
-        super.click(this.edituser);
-    }
-
-
-    public void edituser() {
-        super.click(this.edituser);
-        super.click(this.assignrole);
-        super.click(this.selectroledd);
-        super.click(this.chooserole);
-        super.click(this.submitrole);
+    public WebElement verifyToastMsg() {
+        return toastmsg;
     }
 }
+

@@ -5,4 +5,5 @@ Feature: Admin Login
   Scenario: Successful admin login
     Given I am on the admin login page
     When I enter username and password
-    Then I click the login button
+    And I click the login button
+    Then I should be logged in successfully
