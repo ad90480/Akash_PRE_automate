@@ -13,7 +13,7 @@ public class PlanAddMedical extends CommonlyUsed {
     @FindBy(how = How.XPATH, using = "//span[contains(text(), 'Apple Incorp Ltd')]")
     private WebElement groupsHighlight;
     @FindBy(how = How.XPATH, using = "//div[text()='Medical']")
-    private WebElement clickDentalType;
+    private WebElement clickMedicalType;
     @FindBy(how = How.XPATH, using = "//div[text()='Create New Plan']")
     private WebElement clickCreateNewPlan;
     @FindBy(how = How.XPATH, using = "//input[@placeholder=\"Plan Name\"]")
@@ -86,7 +86,7 @@ public class PlanAddMedical extends CommonlyUsed {
     }
 
     public void chooseTypeAndDesign() {
-        super.click(this.clickDentalType);
+        super.click(this.clickMedicalType);
         super.click(this.clickCreateNewPlan);
     }
 
@@ -103,8 +103,8 @@ public class PlanAddMedical extends CommonlyUsed {
     }
 
     public void claimAdjAndPlanID() {
-        super.writeText(this.claimAdjudication, "CLAIMDEN123");
-        super.writeText(this.planID, "DEN" + randomNumber(3));
+        super.writeText(this.claimAdjudication, "CLAIMMED123");
+        super.writeText(this.planID, "MED" + randomNumber(3));
 
     }
 
@@ -115,32 +115,31 @@ public class PlanAddMedical extends CommonlyUsed {
 
     }
 
-    //DentalInNetworkSection
-    public void denInNetworkValues() {
-        writeText(individualDeductible, randomNumber(4));
-        writeText(familyDeductible, randomNumber(4));
-        writeText(dentalAnnualMax, randomNumber(4));
-        writeText(orthodontiaMax, randomNumber(4));
-        click(selectAllCoveredServices);
-        click(clickAssignButton);
-        click(inCoveredServiceTypeDrop);
-        click(inCoveredServiceTypeValue);
+    //MedicalInNetworkSection
+    public void medInNetworkValues() {
+        super.writeText(individualDeductible, randomNumber(4));
+       super.writeText(familyDeductible, randomNumber(4));
+        super.writeText(dentalAnnualMax, randomNumber(4));
+        super.writeText(orthodontiaMax, randomNumber(4));
+        super.click(selectAllCoveredServices);
+        super.click(clickAssignButton);
+        super.click(inCoveredServiceTypeDrop);
+        super.click(inCoveredServiceTypeValue);
         writeText(inMemberPortion, randomNumber(2));
-        click(inAssignPopupDone);
-        click(addOutNetworkSection);
+        super.click(inAssignPopupDone);
+        super.click(addOutNetworkSection);
     }
 
-    //DentalOutNetworkSection
-    public void denOutNetworkValues() {
-        //  click(addOutNetworkSection);
-        writeText(individualDeductible, randomNumber(4));
-        writeText(familyDeductible, randomNumber(4));
-        click(selectAllCoveredServices);
-        click(clickAssignButton);
-        click(outCoveredServiceTypeDrop);
-        click(outCoveredServiceTypeValue);
-        writeText(outMemberPortion, randomNumber(2));
-        click(outAssignPopupDone);
+    //MedicalOutNetworkSection
+    public void medOutNetworkValues() {
+        super.writeText(individualDeductible, randomNumber(4));
+        super.writeText(familyDeductible, randomNumber(4));
+        super.click(selectAllCoveredServices);
+        super.click(clickAssignButton);
+        super.click(outCoveredServiceTypeDrop);
+        super.click(outCoveredServiceTypeValue);
+        super.writeText(outMemberPortion, randomNumber(2));
+        super.click(outAssignPopupDone);
     }
 
 

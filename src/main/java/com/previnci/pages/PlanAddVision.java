@@ -104,8 +104,8 @@ public class PlanAddVision extends CommonlyUsed {
 
     }
 
-    //DentalInNetworkSection
-    public void denInNetworkValues() {
+    //VisionInNetworkSection
+    public void visInNetworkValues() {
         click(selectAllCoveredServices);
         click(clickAssignButton);
         click(inCoveredServiceTypeDrop);
@@ -115,8 +115,8 @@ public class PlanAddVision extends CommonlyUsed {
         click(addOutNetworkSection);
     }
 
-    //DentalOutNetworkSection
-    public void denOutNetworkValues() {
+    //VisionOutNetworkSection
+    public void visOutNetworkValues() {
         click(selectAllCoveredServices);
         click(clickAssignButton);
         click(outCoveredServiceTypeDrop);
