@@ -15,7 +15,7 @@ import org.junit.runner.RunWith;
         dryRun = false,
         monochrome = true,
         snippets = CucumberOptions.SnippetType.CAMELCASE,
-        tags = "@test3",
+        tags = "@test6",
         stepNotifications = true
 )
 public class TestRunner {

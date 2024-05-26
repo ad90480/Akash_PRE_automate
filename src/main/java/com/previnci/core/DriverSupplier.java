@@ -23,7 +23,7 @@ public class DriverSupplier {
         options.addArguments("--ignore-certificate-errors");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--no-sandbox");
-        options.addArguments("--disable-save-password"); // Disable save password popup
+        options.addArguments("--disable-save-password");
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
         options.setUnhandledPromptBehaviour(UnexpectedAlertBehaviour.IGNORE);
         Map<String, Object> prefs = new HashMap<String, Object>();
@@ -34,7 +34,7 @@ public class DriverSupplier {
     };
 
     static {
-        driverMap.put(DriverType.CHROME, chromeDriverSupplier); // Assuming DriverType.CHROME exists
+        driverMap.put(DriverType.CHROME, chromeDriverSupplier);
     }
 
     private final String browser = System.getProperty("browser");

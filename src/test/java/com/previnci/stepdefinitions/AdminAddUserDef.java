@@ -37,7 +37,7 @@ public class AdminAddUserDef {
 
     @And("click on submit button")
     public void clickOnSubmitButton() {
-        this.common.submitbutton();
+        this.common.submitButton();
     }
 
     @And("validate the toast message")
