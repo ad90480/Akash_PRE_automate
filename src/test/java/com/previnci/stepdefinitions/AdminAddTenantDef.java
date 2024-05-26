@@ -32,7 +32,7 @@ public class AdminAddTenantDef {
     }
     @Then("I click the submit button")
     public void iClickTheSubmitButton() {
-        this.common.submitbutton();
+        this.common.submitButton();
     }
 
     @And("I should see a confirmation message")

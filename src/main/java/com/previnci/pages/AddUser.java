@@ -7,7 +7,7 @@ import org.openqa.selenium.support.How;
 
 public class AddUser extends BasePage {
 
-    @FindBy(how = How.XPATH, using = "(//span[@class=\"pvt-nav-link-text nested-title-text\"])[7]")
+    @FindBy(how = How.XPATH, using = "(//span[@class=\"pvt-nav-link-text nested-title-text\"])[7]")//Use this XPATH if fails(//span[.='Users'])[1]
     private WebElement usermodule;
     @FindBy(how = How.XPATH, using = "//div[@ng-reflect-fx-flex-align=\"start\"]")
     private WebElement adduserbutton;
