@@ -10,10 +10,12 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -27,24 +29,6 @@ public class BasePage extends PageGenerator {
 
     public BasePage(WebDriver driver) {
         super(driver);
-    }
-
-    public static void highlightElement(WebDriver driver, WebElement element, String borderColor, String textColor) {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].setAttribute('style', 'border: 8px solid " + borderColor + "; color: " + textColor + ";');", element);
-    }
-
-    public WebElement printListAndSelect(List<WebElement> list, boolean selectOption) {
-        System.out.println("List Items:");
-        for (int i = 0; i < list.size(); i++) {
-            WebElement item = list.get(i);
-            System.out.println((i + 1) + ". " + item.getText());
-            if (selectOption && i == 0) { // Optionally select the first element
-                System.out.println("Selected: " + item.getText());
-                return item; // Return the selected element
-            }
-        }
-        return null; // Return null if no element is selected
     }
 
     protected FluentWait<WebDriver> createFluentWait(Duration timeout, Duration polling) {
@@ -66,15 +50,24 @@ public class BasePage extends PageGenerator {
 
     public void click(WebElement element, boolean scrollIntoView) {
         try {
+            // Wait for the element to be visible and clickable
+            createDefaultFluentWait().until(ExpectedConditions.visibilityOf(element));
             createDefaultFluentWait().until(ExpectedConditions.elementToBeClickable(element));
             if (scrollIntoView) {
                 scrollElementIntoView(element);
             }
+            // Attempt to click the element
             element.click();
         } catch (TimeoutException e) {
             System.out.println("Timeout waiting for element to be clickable: " + e.getMessage());
         } catch (WebDriverException e) {
             System.out.println("Element Not Clickable: " + e.getMessage());
+            // Fallback to JavaScript click if the regular click fails
+            try {
+                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+            } catch (WebDriverException jsEx) {
+                System.out.println("JavaScript click also failed: " + jsEx.getMessage());
+            }
         }
     }
 
@@ -82,20 +75,21 @@ public class BasePage extends PageGenerator {
         click(element, true); // Default to scrolling into view
     }
 
-    protected void writeText(WebElement element, String text) {
-        writeText(element, text, false); // Default to not pressing Enter
-    }
 
     protected void writeText(WebElement element, String text, boolean pressEnter) {
         if (StringUtils.isNotEmpty(text)) {
             clearText(element); // Clears the text field
             element.sendKeys(text); // Enters the provided text
-
             if (pressEnter) {
                 element.sendKeys(Keys.ENTER); // Presses the Enter key if requested
             }
         }
     }
+
+    protected void writeText(WebElement element, String text) {
+        writeText(element, text, false); // Default to not pressing Enter
+    }
+
 
     protected String getText(WebElement element) {
         try {
@@ -105,6 +99,72 @@ public class BasePage extends PageGenerator {
             return null;
         }
     }
+    public static void highlightElement(WebDriver driver, WebElement element, String borderColor, String textColor) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].setAttribute('style', 'border: 8px solid " + borderColor + "; color: " + textColor + ";');", element);
+    }
+    public List<List<String>> getTableData(By tableLocator) {
+        WebElement table = driver.findElement(tableLocator);
+        List<WebElement> rows = table.findElements(By.tagName("tr"));
+        List<List<String>> tableData = new ArrayList<>();
+
+        for (WebElement row : rows) {
+            List<WebElement> cells = row.findElements(By.tagName("td"));
+            List<String> rowData = new ArrayList<>();
+            for (WebElement cell : cells) {
+                String cellText = cell.getText();
+                rowData.add(cellText);
+                System.out.print(cellText + "\t");
+            }
+            tableData.add(rowData);
+            System.out.println(); // Print a new line for the next row
+        }
+        return tableData;
+    }
+
+    public WebElement printListAndSelect(List<WebElement> list, boolean selectOption) {
+        System.out.println("List Items:");
+        for (int i = 0; i < list.size(); i++) {
+            WebElement item = list.get(i);
+            System.out.println((i + 1) + ". " + item.getText());
+            if (selectOption && i == 0) { // Optionally select the first element
+                System.out.println("Selected: " + item.getText());
+                return item; // Return the selected element
+            }
+        }
+        return null; // Return null if no element is selected
+    }
+    public void waitForElementToBeVisible(WebElement element, Duration timeout) {
+        new WebDriverWait(driver, timeout)
+                .until(ExpectedConditions.visibilityOf(element));
+    }
+
+    public void waitForElementToBeClickable(WebElement element, Duration timeout) {
+        new WebDriverWait(driver, timeout)
+                .until(ExpectedConditions.elementToBeClickable(element));
+    }
+
+    public void waitForFixedTime(long milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+    public static boolean isValueListedInTable(WebDriver driver, By tableLocator, String value) {
+        WebElement table = driver.findElement(tableLocator);
+        List<WebElement> rows = table.findElements(By.tagName("tr"));
+        for (WebElement row : rows) {
+            List<WebElement> cells = row.findElements(By.tagName("td"));
+            for (WebElement cell : cells) {
+                if (cell.getText().equals(value)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 
     public String randomString(int length) {
         String letters = RandomStringUtils.randomAlphabetic(length);
