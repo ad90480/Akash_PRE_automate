@@ -16,7 +16,7 @@ Feature: Add Dental Plan
 
     Examples:
       | Plan Name        | Benefit Year Start | Benefit Year End |
-      | Test Dental Plan | 2024-01-01         | 2024-12-31       |
+      | Test Dental Plan | 01012024           | 12312024         |
 
 
 

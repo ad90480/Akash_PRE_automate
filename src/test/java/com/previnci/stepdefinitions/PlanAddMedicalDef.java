@@ -7,7 +7,9 @@ import com.previnci.pages.PlanAddMedical;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.openqa.selenium.WebElement;
 
+import java.time.Duration;
 
 public class PlanAddMedicalDef {
     private final PageManager pageManager = PageManager.getInstance();
@@ -17,59 +19,66 @@ public class PlanAddMedicalDef {
 
     @When("I navigate to the Plan Details Page")
     public void iNavigateToThePlanDetailsPage() {
-        this.addMedical.searchAndSelectGroup("Apple");
-        this.common.addNewButton();
-        this.common.clickPolicyAndPlansMenu();
-        this.common.addNewButton();
+        addMedical.searchAndSelectGroup("Apple");
+        common.addNewButton();
+        common.clickPolicyAndPlansMenu();
+        common.addNewButton();
     }
 
     @And("I choose type Medical and plan design Create New Plan")
     public void iChooseTypeMedicalAndPlanDesignCreateNewPlan() {
-        this.addMedical.chooseTypeAndDesign();
+        addMedical.chooseTypeAndDesign();
     }
 
     @And("I click on the next button")
     public void iClickOnTheButton() {
-        this.common.nextButton();
+        common.nextButton();
     }
 
     @And("I fill in the details of Med {string}, {string}, {string} with all new contacts")
     public void iFillInTheDetailsOfMedWithAllNewContacts(String planName, String benefitYearStart, String benefitYearEnd) {
-        this.addMedical.fillPlanName(planName);
-        this.addMedical.fillBenefitYearDate(benefitYearStart, benefitYearEnd);
-        this.addMedical.claimAdjAndPlanID();
-        this.addMedical.choosePlanDesignAndIdCard();
-        this.common.addPayerContact();
-        this.common.addPatientContact();
-        this.common.addAdminContact();
-        this.common.addBillingContact();
-        this.common.nextButton();
+        addMedical.generateAndFillPlanName(planName);
+        addMedical.fillBenefitYearDate(benefitYearStart, benefitYearEnd);
+        addMedical.claimAdjAndPlanID();
+        addMedical.choosePlanDesignAndIdCard();
+        common.addPayerContact();
+        common.addPatientContact();
+        common.addAdminContact();
+        common.addBillingContact();
+        common.nextButton();
     }
 
     @And("I fill Med Plan In-Network section with new contacts details")
     public void iFillMedPlanInNetworkSectionWithNewContactsDetails() {
-        this.common.addInNetworkContact();
-        this.addMedical.medInNetworkValues();
+        common.addInNetworkContact();
+        common.addPBMContact();
+        addMedical.medInNetworkValues();
     }
 
     @And("I fill Med Plan Out-Network section with new contacts details")
     public void iFillMedPlanOutNetworkSectionWithNewContactsDetails() {
-        this.common.addOutNetworkContact();
-        this.addMedical.medOutNetworkValues();
+        common.addOutNetworkContact();
+        addMedical.medOutNetworkValues();
     }
 
     @And("I submit the form")
     public void iSubmitTheForm() {
-        this.common.submitButton();
+        common.submitButton();
     }
 
     @And("I should see a Med Add Plan confirmation message")
     public void iShouldSeeAMedAddPlanConfirmationMessage() {
-
+        String planNames = addMedical.getGeneratedPlanName();
+        WebElement actualToast = addMedical.verifyAddMedPlanToast();
+        basePage.waitForElementToBeVisible(actualToast, Duration.ofSeconds(15));
+        basePage.assertTextEquals(actualToast, planNames + " has been added successfully.");
     }
 
     @Then("the new Med plan should be listed in the Plan List section")
-    public void theNewMedPlanShouldBeListedInThePlanListSection() {
-
+    public void theNewMedPlanShouldBeListedInThePlanListSection() throws InterruptedException {
+        String planName = addMedical.getGeneratedPlanName();
+        WebElement planListed = addMedical.verifyListedPlan();
+        basePage.assertTextEquals(planListed, planName);
     }
+
 }

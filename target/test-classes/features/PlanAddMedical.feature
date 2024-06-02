@@ -16,6 +16,6 @@ Feature: Add Medical Plan
 
     Examples:
       | Plan Name         | Benefit Year Start | Benefit Year End |
-      | Test Medical Plan | 2024-01-01         | 2024-12-31       |
+      | Test Medical Plan | 01012024           | 12312024         |
 
 

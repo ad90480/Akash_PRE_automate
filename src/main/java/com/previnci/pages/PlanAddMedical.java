@@ -22,32 +22,44 @@ public class PlanAddMedical extends CommonlyUsed {
     private WebElement planBenefitStart;
     @FindBy(how = How.XPATH, using = "//input[@placeholder=\"End MM/DD/YYYY\"]")
     private WebElement planBenefitEnd;
+    @FindBy(how = How.XPATH, using = "(//span[text()=\"Please Select\"])[1]")
+    private WebElement medAccumulatorResetDrop;
+    @FindBy(how = How.XPATH, using = "//a[.='Benefit Year']")
+    private WebElement medAccumulatorResetValue;
     @FindBy(how = How.XPATH, using = "//input[@placeholder=\"Claim Adjudication System Name\"]")
     private WebElement claimAdjudication;
     @FindBy(how = How.XPATH, using = "//input[@placeholder=\"Plan ID\"]")
     private WebElement planID;
-    @FindBy(how = How.XPATH, using = "//span[text()=\"Accumulator Reset\"]")
-    private WebElement accumulatorResetDrop;
-    @FindBy(how = How.XPATH, using = "//a[.='Benefit Year']")
-    private WebElement accumulatorResetValue;
+    @FindBy(how = How.XPATH, using = "(//a[@class=\"pvt-select-selection\"])[2]")
+    private WebElement medPlanTypeDrop;
+    @FindBy(how = How.XPATH, using = "//a[.='Embedded']")
+    private WebElement medPlanTypeValue;
     @FindBy(how = How.XPATH, using = "//input[@placeholder=\"Specific deductible limit\"]")
     private WebElement specificDedLimit;
-    @FindBy(how = How.XPATH, using = "//span[.='Please Select']")
-    private WebElement planTypeDrop;
-    @FindBy(how = How.XPATH, using = "//a[.='Embedded']")
-    private WebElement planTypeValue;
-    @FindBy(how = How.XPATH, using = "//span[.= 'ID Card Template']")
+    @FindBy(how = How.XPATH, using = "(//label[@class=\"pv-toggle ng-star-inserted\"])[1]")
+    private WebElement hsaEligible;
+    @FindBy(how = How.XPATH, using = "(//label[@class=\"pv-toggle ng-star-inserted\"])[2]")
+    private WebElement copayMedical;
+    @FindBy(how = How.XPATH, using = "(//label[@class=\"pv-toggle ng-star-inserted\"])[3]")
+    private WebElement copayPharmacy;
+    @FindBy(how = How.XPATH, using = "//previnci-select[@ng-reflect--select-text=\"Select ID Card Template\"]")//(//a[@class="pvt-select-selection"])[3]
     private WebElement idCardDrop;
-    @FindBy(how = How.XPATH, using = "//div/a[.= 'CAN2024Dental Card']")//(//div[@class="pvt-select-list"])[3]
+    @FindBy(how = How.XPATH, using = "//div/a[.= 'CAN2024_Traditional Card']")//(//div[@class="pvt-select-list"])[3]
     private WebElement idCardValue;
     @FindBy(how = How.XPATH, using = "//input[@placeholder=\"Individual Deductible\"]")
     private WebElement individualDeductible;
     @FindBy(how = How.XPATH, using = "//input[@placeholder=\"Family Deductible\"]")
     private WebElement familyDeductible;
-    @FindBy(how = How.XPATH, using = "//input[@placeholder=\"Dental Annual Max\"]")
-    private WebElement dentalAnnualMax;
-    @FindBy(how = How.XPATH, using = "//input[@placeholder=\"Orthodontia Lifetime Max\"]")
-    private WebElement orthodontiaMax;
+    @FindBy(how = How.XPATH, using = "//input[@placeholder=\"Individual OOPM\"]")
+    private WebElement individualOOPM;
+    @FindBy(how = How.XPATH, using = "//input[@placeholder=\"Family OOPM\"]")
+    private WebElement familyOOPM;
+    @FindBy(how = How.XPATH, using = "//input[@placeholder=\"RxBin\"]")
+    private WebElement rxBin;
+    @FindBy(how = How.XPATH, using = "//input[@placeholder=\"RxPCN\"]")
+    private WebElement rxPCN;
+    @FindBy(how = How.XPATH, using = "//input[@placeholder=\"RxGroup\"]")
+    private WebElement rxGroup;
     @FindBy(how = How.XPATH, using = "(//input[@ng-reflect-name=\"checkbox\"])[1]")
     private WebElement selectAllCoveredServices;
     @FindBy(how = How.XPATH, using = "//previnci-buttons[@label=\"Assign\"]")
@@ -68,79 +80,109 @@ public class PlanAddMedical extends CommonlyUsed {
     private WebElement inAssignPopupDone;
     @FindBy(how = How.XPATH, using = "(//span[.='Done '])[2]")
     private WebElement outAssignPopupDone;
-
     @FindBy(how = How.XPATH, using = "//div[.= '+ Add Out of Network Benefits']")
     private WebElement addOutNetworkSection;
-//    @FindBy(how = How.XPATH, using = "(//div[@class=\"pv-border-right pv-border-gray\"])//div[.='+ Add Out of Network Benefits']")
-//    private WebElement addOutNetworkSection;
+    @FindBy(how = How.XPATH, using = "//div[@class=\"pvt-toast-wrraper active\"]/span/strong")
+    private WebElement addMedPlanToastMsg;
+    @FindBy(how = How.XPATH, using = "//td[@class=\"pvt-name ng-star-inserted\"]")
+    private WebElement medPlanListedTable;
+//    @FindBy(how = How.XPATH, using = "((//tbody[@class=\"p-element p-datatable-tbody\"])/tr/td)[5]")
+//    private WebElement getTableData;
+
+    private String generatedPlanName;
 
     public PlanAddMedical(WebDriver driver) {
         super(driver);
     }
 
+
     public void searchAndSelectGroup(String groupName) {
-        super.writeText(this.searchForGroup, groupName, true);
-        super.click(this.clickAppleGroup);
+        writeText(this.searchForGroup, groupName, true);
+        click(this.clickAppleGroup);
         highlightElement(driver, this.groupsHighlight, "blue", "green");
 
     }
 
     public void chooseTypeAndDesign() {
-        super.click(this.clickMedicalType);
-        super.click(this.clickCreateNewPlan);
+        click(this.clickMedicalType);
+        click(this.clickCreateNewPlan);
     }
 
+    public void generateAndFillPlanName(String planName) {
+        this.generatedPlanName = planName + " " + randomNumber(2);
+        fillPlanName(this.generatedPlanName);
+    }
 
     public void fillPlanName(String DP) {
-        super.writeText(this.planName, DP);
+        writeText(this.planName, DP);
+    }
+
+    public String getGeneratedPlanName() {
+        return generatedPlanName;
     }
 
     public void fillBenefitYearDate(String PS, String PE) {
-        super.writeText(this.planBenefitStart, PS);
-        super.writeText(this.planBenefitEnd, PE);
-        super.selectOptionFromDropdown(this.accumulatorResetDrop, this.accumulatorResetValue);
+        writeText(this.planBenefitStart, PS);
+        writeText(this.planBenefitEnd, PE);
+        selectOptionFromDropdown(this.medAccumulatorResetDrop, this.medAccumulatorResetValue);
 
     }
 
     public void claimAdjAndPlanID() {
-        super.writeText(this.claimAdjudication, "CLAIMMED123");
-        super.writeText(this.planID, "MED" + randomNumber(3));
+        writeText(this.claimAdjudication, "CLAIMMED123");
+        writeText(this.planID, "MED" + randomNumber(3));
 
     }
 
     public void choosePlanDesignAndIdCard() {
-        super.selectOptionFromDropdown(this.planTypeDrop, this.planTypeValue);
-        super.writeText(this.specificDedLimit, randomNumber(4));
-        super.selectOptionFromDropdown(idCardDrop, idCardValue);
-
+        selectOptionFromDropdown(this.medPlanTypeDrop, this.medPlanTypeValue);
+        writeText(this.specificDedLimit, randomNumber(4));
+        click(hsaEligible);
+        click(copayMedical);
+        click(copayPharmacy);
+        selectOptionFromDropdown(this.idCardDrop, this.idCardValue);
     }
 
     //MedicalInNetworkSection
     public void medInNetworkValues() {
-        super.writeText(individualDeductible, randomNumber(4));
-       super.writeText(familyDeductible, randomNumber(4));
-        super.writeText(dentalAnnualMax, randomNumber(4));
-        super.writeText(orthodontiaMax, randomNumber(4));
-        super.click(selectAllCoveredServices);
-        super.click(clickAssignButton);
-        super.click(inCoveredServiceTypeDrop);
-        super.click(inCoveredServiceTypeValue);
+        writeText(individualDeductible, randomNumber(4));
+        writeText(individualOOPM, randomNumber(4));
+        writeText(familyDeductible, randomNumber(4));
+        writeText(familyOOPM, randomNumber(4));
+        writeText(rxBin, "rxBin" + randomNumber(2));
+        writeText(rxPCN, "rxPCN" + randomNumber(2));
+        writeText(rxGroup, "rxGroup" + randomNumber(2));
+        click(selectAllCoveredServices);
+        click(clickAssignButton);
+        click(inCoveredServiceTypeDrop);
+        click(inCoveredServiceTypeValue);
         writeText(inMemberPortion, randomNumber(2));
-        super.click(inAssignPopupDone);
-        super.click(addOutNetworkSection);
+        click(inAssignPopupDone);
+        click(addOutNetworkSection);
     }
 
     //MedicalOutNetworkSection
     public void medOutNetworkValues() {
-        super.writeText(individualDeductible, randomNumber(4));
-        super.writeText(familyDeductible, randomNumber(4));
-        super.click(selectAllCoveredServices);
-        super.click(clickAssignButton);
-        super.click(outCoveredServiceTypeDrop);
-        super.click(outCoveredServiceTypeValue);
-        super.writeText(outMemberPortion, randomNumber(2));
-        super.click(outAssignPopupDone);
+        writeText(individualDeductible, randomNumber(4));
+        writeText(individualOOPM, randomNumber(4));
+        writeText(familyDeductible, randomNumber(4));
+        writeText(familyOOPM, randomNumber(4));
+        click(selectAllCoveredServices);
+        click(clickAssignButton);
+        click(outCoveredServiceTypeDrop);
+        click(outCoveredServiceTypeValue);
+        writeText(outMemberPortion, randomNumber(2));
+        click(outAssignPopupDone);
+
     }
 
+    //Verify Plan toast
+    public WebElement verifyAddMedPlanToast() {
+        return addMedPlanToastMsg;
+    }
 
+    //Listed Plan
+    public WebElement verifyListedPlan(){
+        return medPlanListedTable;
+    }
 }

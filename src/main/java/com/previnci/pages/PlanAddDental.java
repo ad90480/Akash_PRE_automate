@@ -6,40 +6,34 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
 public class PlanAddDental extends CommonlyUsed {
-    @FindBy(how = How.XPATH, using = "//input[@placeholder=\"Search\"]")
-    private WebElement searchForGroup;
-    @FindBy(how = How.XPATH, using = "//span[contains(text(), 'Apple Incorp Ltd')]")
-    private WebElement clickAppleGroup;
-    @FindBy(how = How.XPATH, using = "//span[contains(text(), 'Apple Incorp Ltd')]")
-    private WebElement groupsHighlight;
     @FindBy(how = How.XPATH, using = "//div[text()='Dental']")
     private WebElement clickDentalType;
     @FindBy(how = How.XPATH, using = "//div[text()='Create New Plan']")
     private WebElement clickCreateNewPlan;
     @FindBy(how = How.XPATH, using = "//input[@placeholder=\"Plan Name\"]")
-    private WebElement planName;
+    private WebElement denPlanName;
     @FindBy(how = How.XPATH, using = "//input[@placeholder=\"Start MM/DD/YYYY\"]")
-    private WebElement planBenefitStart;
+    private WebElement denPlanBenefitStart;
     @FindBy(how = How.XPATH, using = "//input[@placeholder=\"End MM/DD/YYYY\"]")
-    private WebElement planBenefitEnd;
-    @FindBy(how = How.XPATH, using = "//input[@placeholder=\"Claim Adjudication System Name\"]")
-    private WebElement claimAdjudication;
-    @FindBy(how = How.XPATH, using = "//input[@placeholder=\"Plan ID\"]")
-    private WebElement planID;
+    private WebElement denPlanBenefitEnd;
     @FindBy(how = How.XPATH, using = "//span[text()=\"Accumulator Reset\"]")
-    private WebElement accumulatorResetDrop;
+    private WebElement denAccumulatorResetDrop;
     @FindBy(how = How.XPATH, using = "//a[.='Benefit Year']")
-    private WebElement accumulatorResetValue;
+    private WebElement denAccumulatorResetValue;
+    @FindBy(how = How.XPATH, using = "//input[@placeholder=\"Claim Adjudication System Name\"]")
+    private WebElement denClaimAdjudication;
+    @FindBy(how = How.XPATH, using = "//input[@placeholder=\"Plan ID\"]")
+    private WebElement denPlanID;
     @FindBy(how = How.XPATH, using = "//input[@placeholder=\"Specific deductible limit\"]")
-    private WebElement specificDedLimit;
-    @FindBy(how = How.XPATH, using = "//span[.='Please Select']")
-    private WebElement planTypeDrop;
+    private WebElement denSpecificDedLimit;
+    @FindBy(how = How.XPATH, using = "//span[text()=\"Please Select\"]")
+    private WebElement denPlanTypeDrop;
     @FindBy(how = How.XPATH, using = "//a[.='Embedded']")
-    private WebElement planTypeValue;
-    @FindBy(how = How.XPATH, using = "//span[.= 'ID Card Template']")
-    private WebElement idCardDrop;
+    private WebElement denPlanTypeValue;
+    @FindBy(how = How.XPATH, using = "//span[text()=\"ID Card Template\"]")
+    private WebElement denIdCardDrop;
     @FindBy(how = How.XPATH, using = "//div/a[.= 'CAN2024Dental Card']")//(//div[@class="pvt-select-list"])[3]
-    private WebElement idCardValue;
+    private WebElement denIdCardValue;
     @FindBy(how = How.XPATH, using = "//input[@placeholder=\"Individual Deductible\"]")
     private WebElement individualDeductible;
     @FindBy(how = How.XPATH, using = "//input[@placeholder=\"Family Deductible\"]")
@@ -68,50 +62,48 @@ public class PlanAddDental extends CommonlyUsed {
     private WebElement inAssignPopupDone;
     @FindBy(how = How.XPATH, using = "(//span[.='Done '])[2]")
     private WebElement outAssignPopupDone;
-
     @FindBy(how = How.XPATH, using = "//div[.= '+ Add Out of Network Benefits']")
     private WebElement addOutNetworkSection;
-//    @FindBy(how = How.XPATH, using = "(//div[@class=\"pv-border-right pv-border-gray\"])//div[.='+ Add Out of Network Benefits']")
+    @FindBy(how = How.XPATH, using = "//div[@class=\"pvt-toast-wrraper active\"]/span/strong")
+    private WebElement addDenPlanToastMsg;
+    @FindBy(how = How.XPATH, using = "//td[@class=\"pvt-name ng-star-inserted\"]")
+    private WebElement denPlanListedTable;
+    //    @FindBy(how = How.XPATH, using = "(//div[@class=\"pv-border-right pv-border-gray\"])//div[.='+ Add Out of Network Benefits']")
 //    private WebElement addOutNetworkSection;
+    private String generatedDenPlanName;
 
     public PlanAddDental(WebDriver driver) {
         super(driver);
     }
 
-    public void searchAndSelectGroup(String groupName) {
-        super.writeText(this.searchForGroup, groupName, true);
-        super.click(this.clickAppleGroup);
-        highlightElement(driver, this.groupsHighlight, "blue", "green");
-
-    }
+//    public void searchAndSelectGroup(String groupName) {
+//        super.writeText(this.searchForGroup, groupName, true);
+//        super.click(this.clickAppleGroup);
+//        highlightElement(driver, this.groupsHighlight, "blue", "green");
+//
+//    }
 
     public void chooseTypeAndDesign() {
-        super.click(this.clickDentalType);
-        super.click(this.clickCreateNewPlan);
+        super.click(clickDentalType);
+        super.click(clickCreateNewPlan);
     }
-
-
-    public void fillPlanName(String DP) {
-        super.writeText(this.planName, DP);
-    }
-
     public void fillBenefitYearDate(String PS, String PE) {
-        super.writeText(this.planBenefitStart, PS);
-        super.writeText(this.planBenefitEnd, PE);
-        super.selectOptionFromDropdown(this.accumulatorResetDrop, this.accumulatorResetValue);
+        writeText(denPlanBenefitStart, PS);
+        writeText(denPlanBenefitEnd, PE);
+        selectOptionFromDropdown(denAccumulatorResetDrop, denAccumulatorResetValue);
 
     }
 
-    public void claimAdjAndPlanID() {
-        super.writeText(this.claimAdjudication, "CLAIMDEN123");
-        super.writeText(this.planID, "DEN" + randomNumber(3));
+    public void denClaimAdjAndPlanID() {
+        super.writeText(denClaimAdjudication, "CLAIMDEN123");
+        super.writeText(denPlanID, "DEN" + randomNumber(3));
 
     }
 
-    public void choosePlanDesignAndIdCard() {
-        super.selectOptionFromDropdown(this.planTypeDrop, this.planTypeValue);
-        super.writeText(this.specificDedLimit, randomNumber(4));
-        super.selectOptionFromDropdown(idCardDrop, idCardValue);
+    public void denChoosePlanDesignAndIdCard() {
+        selectOptionFromDropdown(denPlanTypeDrop, denPlanTypeValue);
+        writeText(denSpecificDedLimit, randomNumber(4));
+        selectOptionFromDropdown(denIdCardDrop, denIdCardValue);
 
     }
 
@@ -132,7 +124,6 @@ public class PlanAddDental extends CommonlyUsed {
 
     //DentalOutNetworkSection
     public void denOutNetworkValues() {
-      //  click(addOutNetworkSection);
         writeText(individualDeductible, randomNumber(4));
         writeText(familyDeductible, randomNumber(4));
         click(selectAllCoveredServices);
@@ -141,6 +132,31 @@ public class PlanAddDental extends CommonlyUsed {
         click(outCoveredServiceTypeValue);
         writeText(outMemberPortion, randomNumber(2));
         click(outAssignPopupDone);
+    }
+
+    //Verify Den Plan Name
+
+    public String getGeneratedDenPlanName() {
+        return generatedDenPlanName;
+    }
+
+    public void generateAndFillPlanName(String planName) {
+        this.generatedDenPlanName = planName + " " + randomNumber(2);
+        fillDenPlanName(this.generatedDenPlanName);
+    }
+
+    public void fillDenPlanName(String DP) {
+        writeText(this.denPlanName, DP);
+    }
+
+    //Verify Plan toast
+    public WebElement verifyAddDenPlanToast() {
+        return addDenPlanToastMsg;
+    }
+
+    //Listed Plan
+    public WebElement verifyDenListedPlan() {
+        return denPlanListedTable;
     }
 
 

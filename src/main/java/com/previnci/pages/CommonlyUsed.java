@@ -10,11 +10,11 @@ public class CommonlyUsed extends BasePage {
     private WebElement submitButton;
     @FindBy(how = How.XPATH, using = "//button[contains(., 'next')]")
     private WebElement nextButton;
-    @FindBy(how = How.XPATH, using = "//button[contains(., 'Add new')]")
+    @FindBy(how = How.XPATH, using = "//previnci-buttons[@label=\"Add new\"]")//button[contains(., 'Add new')]
     private WebElement addNewButton;
     @FindBy(how = How.XPATH, using = "//previnci-buttons[@ng-reflect-label=\"Cancel\"]")
     private WebElement cancelButton;
-    @FindBy(how = How.XPATH, using = "//span[.='Policy and Plans']")
+    @FindBy(how = How.XPATH, using = "//li/a/span[text()='Policy and Plans']")
     private WebElement policyAndPlans;
     //Add Plan Contacts:
     @FindBy(how = How.XPATH, using = "(//div[@class=\"pv-accordion-header\"])[1]")
@@ -35,7 +35,7 @@ public class CommonlyUsed extends BasePage {
     private WebElement vendorTypeDrop;
     @FindBy(how = How.XPATH, using = "//div/a[.= 'Back Office']")
     private WebElement vendorTypeValue;
-    @FindBy(how = How.XPATH, using = "//input[@placeholder=\"###-###-####\"]")
+    @FindBy(how = How.XPATH, using = "(//previnci-input[@inputpattern=\"phone\"])/div/div/input")
     private WebElement vendorPhone;
     @FindBy(how = How.XPATH, using = "//input[@placeholder=\"email\"]")
     private WebElement vendorEmail;
