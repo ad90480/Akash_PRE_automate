@@ -224,3 +224,139 @@
 //        }
 //    }
 //}
+
+
+
+//1.	highlightElement(WebDriver driver, WebElement element, String borderColor, String textColor)
+//2.	printListAndSelect(List<WebElement> list, boolean selectOption)
+//3.	createFluentWait(Duration timeout, Duration polling)
+//4.	createDefaultFluentWait()
+//5.	clearText(WebElement element)
+//6.	scrollElementIntoView(WebElement element)
+//7.	click(WebElement element, boolean scrollIntoView)
+//8.	click(WebElement element)
+//9.	writeText(WebElement element, String text)
+//10.	writeText(WebElement element, String text, boolean pressEnter)
+//11.	getText(WebElement element)
+//12.	randomString(int length)
+//13.	randomNumber(int length)
+//14.	randomAlphanumeric(int lettersLength, int numbersLength)
+//15.	switchToWindow(WebDriver driver, String windowHandle)
+//16.	captureScreenshot(WebDriver driver, String screenshotName) throws IOException
+//17.	dragAndDrop(WebElement source, WebElement target)
+//18.	hoverOverElement(WebElement element)
+//19.	selectDropdownByText(WebElement dropdownElement, String visibleText)
+//20.	selectDropdownByValue(WebElement dropdownElement, String value)
+//21.	selectDropdownByIndex(WebElement dropdownElement, int index)
+//22.	assertElementDisplayed(WebElement element)
+//23.	assertTextEquals(WebElement element, Object expected)
+//24.	assertTitleEquals(String expectedTitle)
+//25.	assertUrlEquals(String expectedUrl)
+
+
+
+
+//package com.previnci.pages;
+//
+//import org.openqa.selenium.WebDriver;
+//import org.openqa.selenium.WebElement;
+//import org.openqa.selenium.support.FindBy;
+//import org.openqa.selenium.support.How;
+//
+//import java.io.IOException;
+//import java.util.List;
+//
+//public class AdminLogin extends BasePage {
+//
+//    private final String userName = rb.getString("adminusername");
+//    private final String passWord = rb.getString("adminpassword");
+//    @FindBy(how = How.XPATH, using = "//div/input[@placeholder=\"Enter Username\"]")
+//    private WebElement usernametext;
+//    @FindBy(how = How.XPATH, using = "//div/input[@placeholder=\"Enter Password\"]")
+//    private WebElement passwordtext;
+//    @FindBy(how = How.XPATH, using = "//button[@type='button']")
+//    private WebElement loginbuttotn;
+//    @FindBy(how = How.XPATH, using = "(//span[text()=\"Groups\"])[2]")
+//    private WebElement afterloggedin;
+//    @FindBy(how = How.XPATH, using = "//a/img[@class=\"desktop-logo\"]")
+//    private WebElement pageLogo;
+//    @FindBy(how = How.CSS, using = "li[class=\"pvt-nav-item ng-star-inserted\"]")
+//    private WebElement navBarMenus;
+//
+//
+//    public AdminLogin(WebDriver driver) {
+//        super(driver);
+//    }
+//
+//    public void adminUsername() {
+//        super.writeText(this.usernametext, userName);
+//    }
+//
+//    public void adminPassword() {
+//        super.writeText(this.passwordtext, passWord);
+//    }
+//
+//    public void loginButton() {
+//        super.click(this.loginbuttotn);
+//    }
+//
+//    public WebElement loggedIn() {
+//        return afterloggedin;
+//    }
+//
+//    public WebElement logoCheck() {
+//        return pageLogo;
+//    }
+//
+//    public void adminLoggedIn() {
+//        super.writeText(this.usernametext, userName);
+//        super.writeText(this.passwordtext, passWord);
+//        super.click(this.loginbuttotn);
+//    }
+//    public void enterUsername(String username) {
+//        writeText(this.usernametext, username);
+//    }
+//
+//    public void enterPassword(String password) {
+//        writeText(this.passwordtext, password);
+//    }
+//
+//
+//
+//    public void enterCredentialsFromExcel(String filePath, String sheetName) throws IOException, IOException {
+//        List<List<String>> credentials = BasePage.readUserCredentialsFromExcel(filePath, sheetName);
+//
+//        // Assuming the first row contains headers, so starting from the second row
+//        for (int i = 1; i < credentials.size(); i++) {
+//            List<String> rowData = credentials.get(i);
+//            String username = rowData.get(0);
+//            String password = rowData.get(1);
+//
+//            // Enter username and password
+//            enterUsername(username);
+//            enterPassword(password);
+//            break;
+//        }
+//    }
+//}
+
+
+// Example assertions
+// Assert that the cell in the first row, first column contains the expected value
+//String expectedValue = "Expected Value";
+//String actualValue = tableData.get(0).get(0);
+//        Assert.assertEquals(actualValue, expectedValue, "Cell value does not match expected value.");
+//
+//// Assert that the table contains a specific value somewhere
+//boolean valueFound = tableData.stream().flatMap(List::stream).anyMatch(cell -> cell.equals("Specific Value"));
+//        Assert.assertTrue(valueFound, "Table does not contain the expected value.");
+//
+//// Assert the number of rows
+//int expectedRowCount = 5;
+//int actualRowCount = tableData.size();
+//        Assert.assertEquals(actualRowCount, expectedRowCount, "Row count does not match expected value.");
+//
+//// Assert the number of columns in the first row
+//int expectedColumnCount = 3;
+//int actualColumnCount = tableData.get(0).size();
+//        Assert.assertEquals(actualColumnCount, expectedColumnCount, "Column count in the first row does not match expected value.");

@@ -28,22 +28,22 @@ public class PlanAddVisionDef {
         addVision.fillBenefitYearDate(benefitYearStart, benefitYearEnd);
         addVision.claimAdjAndPlanID();
         addVision.choosePlanDesignAndIdCard();
-        common.addPayerContact();
-        common.addPatientContact();
-        common.addAdminContact();
-        common.addBillingContact();
+//        common.addPayerContact();
+//        common.addPatientContact();
+//        common.addAdminContact();
+//        common.addBillingContact();
         common.nextButton();
     }
 
     @And("I fill Vis Plan In-Network section with new contacts details")
     public void iFillVisPlanInNetworkSectionWithNewContactsDetails() {
-        common.addInNetworkContact();
+       // common.addInNetworkContact();
         addVision.visInNetworkValues();
     }
 
     @And("I fill Vis Plan Out-Network section with new contacts details")
     public void iFillVisPlanOutNetworkSectionWithNewContactsDetails() {
-        common.addOutNetworkContact();
+        //common.addOutNetworkContact();
         addVision.visOutNetworkValues();
     }
 

@@ -4,6 +4,10 @@ import com.previnci.core.PageGenerator;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -13,6 +17,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -30,6 +35,85 @@ public class BasePage extends PageGenerator {
     public BasePage(WebDriver driver) {
         super(driver);
     }
+
+    public static void highlightElement(WebDriver driver, WebElement element, String borderColor, String textColor) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].setAttribute('style', 'border: 8px solid " + borderColor + "; color: " + textColor + ";');", element);
+    }
+
+    // Method to read usernames and passwords from an Excel file
+    public static List<List<String>> readUserCredentialsFromExcel(String filePath, String sheetName) throws IOException {
+        List<List<String>> credentials = new ArrayList<>();
+        FileInputStream fileInputStream = new FileInputStream(filePath);
+        Workbook workbook = new XSSFWorkbook(fileInputStream);
+        Sheet sheet = workbook.getSheet(sheetName);
+
+        for (Row row : sheet) {
+            List<String> rowData = new ArrayList<>();
+            row.forEach(cell -> rowData.add(cell.toString()));
+            credentials.add(rowData);
+        }
+        workbook.close();
+        fileInputStream.close();
+        return credentials;
+    }
+
+    public static List<List<String>> printTableContents(WebDriver driver, By tableLocator, boolean printTable) {
+        WebElement table = driver.findElement(tableLocator);
+        List<WebElement> rows = table.findElements(By.tagName("tr"));
+        List<List<String>> tableData = new ArrayList<>();
+
+        for (WebElement row : rows) {
+            List<WebElement> cells = row.findElements(By.tagName("td"));
+            List<String> rowData = new ArrayList<>();
+            for (WebElement cell : cells) {
+                String cellText = cell.getText();
+                rowData.add(cellText);
+                if (printTable) {
+                    System.out.print(cellText + "\t");  // Tab space between columns for printing
+                }
+            }
+            tableData.add(rowData);
+            if (printTable) {
+                System.out.println();  // Print a new line after each row
+            }
+        }
+        return tableData;
+    }
+
+    public static boolean isValueListedInTable(WebDriver driver, By tableLocator, String value) {
+        WebElement table = driver.findElement(tableLocator);
+        List<WebElement> rows = table.findElements(By.tagName("tr"));
+        for (WebElement row : rows) {
+            List<WebElement> cells = row.findElements(By.tagName("td"));
+            for (WebElement cell : cells) {
+                if (cell.getText().equals(value)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+//    public static void printTableContents(WebDriver driver, String tableXPath) {
+//        // Locate the rows of the table
+//        List<WebElement> rows = driver.findElements(By.xpath(tableXPath + "/tr"));
+//        int rowSize = rows.size();
+//        System.out.println("Number of rows: " + rowSize);
+//
+//        // Locate the cells within the first row to determine the number of columns
+//        List<WebElement> cells = driver.findElements(By.xpath(tableXPath + "/tr[1]/td"));
+//        int cellSize = cells.size();
+//        System.out.println("Number of cells in the first row: " + cellSize);
+//
+//        // Loop through each row and cell to print the table contents
+//        for (int i = 1; i <= rowSize; i++) {
+//            for (int j = 1; j <= cellSize; j++) {
+//                String cellText = driver.findElement(By.xpath(tableXPath + "/tr[" + i + "]/td[" + j + "]")).getText();
+//                System.out.print(cellText + "\t");  // Tab space between columns
+//            }
+//            System.out.println();  // Move to the next line after each row
+//        }
+//    }
 
     protected FluentWait<WebDriver> createFluentWait(Duration timeout, Duration polling) {
         return new FluentWait<>(driver).withTimeout(timeout).pollingEvery(polling).ignoring(NoSuchElementException.class);
@@ -75,7 +159,6 @@ public class BasePage extends PageGenerator {
         click(element, true); // Default to scrolling into view
     }
 
-
     protected void writeText(WebElement element, String text, boolean pressEnter) {
         if (StringUtils.isNotEmpty(text)) {
             clearText(element); // Clears the text field
@@ -90,6 +173,21 @@ public class BasePage extends PageGenerator {
         writeText(element, text, false); // Default to not pressing Enter
     }
 
+    public WebElement findElementByXpath(String xpath) {
+        return createDefaultFluentWait().until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+    }
+
+    public List<WebElement> findElementsByXpath(String xpath) {
+        return createDefaultFluentWait().until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(xpath)));
+    }
+
+    public WebElement findElementByCss(String cssSelector) {
+        return createDefaultFluentWait().until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(cssSelector)));
+    }
+
+    public List<WebElement> findElementsByCss(String cssSelector) {
+        return createDefaultFluentWait().until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector(cssSelector)));
+    }
 
     protected String getText(WebElement element) {
         try {
@@ -99,41 +197,7 @@ public class BasePage extends PageGenerator {
             return null;
         }
     }
-    public static void highlightElement(WebDriver driver, WebElement element, String borderColor, String textColor) {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].setAttribute('style', 'border: 8px solid " + borderColor + "; color: " + textColor + ";');", element);
-    }
-    public List<List<String>> getTableData(By tableLocator) {
-        WebElement table = driver.findElement(tableLocator);
-        List<WebElement> rows = table.findElements(By.tagName("tr"));
-        List<List<String>> tableData = new ArrayList<>();
 
-        for (WebElement row : rows) {
-            List<WebElement> cells = row.findElements(By.tagName("td"));
-            List<String> rowData = new ArrayList<>();
-            for (WebElement cell : cells) {
-                String cellText = cell.getText();
-                rowData.add(cellText);
-                System.out.print(cellText + "\t");
-            }
-            tableData.add(rowData);
-            System.out.println(); // Print a new line for the next row
-        }
-        return tableData;
-    }
-
-    public WebElement printListAndSelect(List<WebElement> list, boolean selectOption) {
-        System.out.println("List Items:");
-        for (int i = 0; i < list.size(); i++) {
-            WebElement item = list.get(i);
-            System.out.println((i + 1) + ". " + item.getText());
-            if (selectOption && i == 0) { // Optionally select the first element
-                System.out.println("Selected: " + item.getText());
-                return item; // Return the selected element
-            }
-        }
-        return null; // Return null if no element is selected
-    }
     public void waitForElementToBeVisible(WebElement element, Duration timeout) {
         new WebDriverWait(driver, timeout)
                 .until(ExpectedConditions.visibilityOf(element));
@@ -151,20 +215,6 @@ public class BasePage extends PageGenerator {
             Thread.currentThread().interrupt();
         }
     }
-    public static boolean isValueListedInTable(WebDriver driver, By tableLocator, String value) {
-        WebElement table = driver.findElement(tableLocator);
-        List<WebElement> rows = table.findElements(By.tagName("tr"));
-        for (WebElement row : rows) {
-            List<WebElement> cells = row.findElements(By.tagName("td"));
-            for (WebElement cell : cells) {
-                if (cell.getText().equals(value)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
 
     public String randomString(int length) {
         String letters = RandomStringUtils.randomAlphabetic(length);

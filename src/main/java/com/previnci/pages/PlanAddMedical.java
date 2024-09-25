@@ -8,9 +8,9 @@ import org.openqa.selenium.support.How;
 public class PlanAddMedical extends CommonlyUsed {
     @FindBy(how = How.XPATH, using = "//input[@placeholder=\"Search\"]")
     private WebElement searchForGroup;
-    @FindBy(how = How.XPATH, using = "//span[contains(text(), 'Apple Incorp Ltd')]")
+    @FindBy(how = How.XPATH, using = "//span[contains(text(), 'Silicon Valley')]")
     private WebElement clickAppleGroup;
-    @FindBy(how = How.XPATH, using = "//span[contains(text(), 'Apple Incorp Ltd')]")
+    @FindBy(how = How.XPATH, using = "//span[contains(text(), 'Silicon Valley, Inc.')]")
     private WebElement groupsHighlight;
     @FindBy(how = How.XPATH, using = "//div[text()='Medical']")
     private WebElement clickMedicalType;

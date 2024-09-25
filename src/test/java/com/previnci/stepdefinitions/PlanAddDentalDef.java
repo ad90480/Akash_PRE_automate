@@ -31,22 +31,22 @@ public class PlanAddDentalDef {
         addDental.fillBenefitYearDate(benefitYearStart, benefitYearEnd);
        addDental.denClaimAdjAndPlanID();
         addDental.denChoosePlanDesignAndIdCard();
-        common.addPayerContact();
-        common.addPatientContact();
-        common.addAdminContact();
-        common.addBillingContact();
+//        common.addPayerContact();
+//        common.addPatientContact();
+//        common.addAdminContact();
+//        common.addBillingContact();
        common.nextButton();
     }
 
     @And("I fill Den Plan In-Network section with new contacts details")
     public void iFillDenPlanInNetworkSectionWithNewContactsDetails() {
-        common.addInNetworkContact();
+       // common.addInNetworkContact();
        addDental.denInNetworkValues();
     }
 
     @And("I fill Den Plan Out-Network section with new contacts details")
     public void iFillDenPlanOutNetworkSectionWithNewContactsDetails() {
-     common.addOutNetworkContact();
+        // common.addOutNetworkContact();
        addDental.denOutNetworkValues();
     }
 
