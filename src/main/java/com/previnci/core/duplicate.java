@@ -191,3 +191,35 @@ public class DriverSupplier  {
 //        return (st + "@" + num);
 //    }
 //}
+
+
+
+
+
+
+//1.	highlightElement(WebDriver driver, WebElement element, String borderColor, String textColor)
+//2.	printListAndSelect(List<WebElement> list, boolean selectOption)
+//3.	createFluentWait(Duration timeout, Duration polling)
+//4.	createDefaultFluentWait()
+//5.	clearText(WebElement element)
+//6.	scrollElementIntoView(WebElement element)
+//7.	click(WebElement element, boolean scrollIntoView)
+//8.	click(WebElement element)
+//9.	writeText(WebElement element, String text)
+//10.	writeText(WebElement element, String text, boolean pressEnter)
+//11.	getText(WebElement element)
+//12.	randomString(int length)
+//13.	randomNumber(int length)
+//14.	randomAlphanumeric(int lettersLength, int numbersLength)
+//15.	switchToWindow(WebDriver driver, String windowHandle)
+//16.	captureScreenshot(WebDriver driver, String screenshotName) throws IOException
+//17.	dragAndDrop(WebElement source, WebElement target)
+//18.	hoverOverElement(WebElement element)
+//19.	selectDropdownByText(WebElement dropdownElement, String visibleText)
+//20.	selectDropdownByValue(WebElement dropdownElement, String value)
+//21.	selectDropdownByIndex(WebElement dropdownElement, int index)
+//22.	assertElementDisplayed(WebElement element)
+//23.	assertTextEquals(WebElement element, Object expected)
+//24.	assertTitleEquals(String expectedTitle)
+//25.	assertUrlEquals(String expectedUrl)
+

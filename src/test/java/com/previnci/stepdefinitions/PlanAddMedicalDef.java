@@ -19,7 +19,7 @@ public class PlanAddMedicalDef {
 
     @When("I navigate to the Plan Details Page")
     public void iNavigateToThePlanDetailsPage() {
-        addMedical.searchAndSelectGroup("Apple");
+        addMedical.searchAndSelectGroup("Silicon");
         common.addNewButton();
         common.clickPolicyAndPlansMenu();
         common.addNewButton();
@@ -41,23 +41,23 @@ public class PlanAddMedicalDef {
         addMedical.fillBenefitYearDate(benefitYearStart, benefitYearEnd);
         addMedical.claimAdjAndPlanID();
         addMedical.choosePlanDesignAndIdCard();
-        common.addPayerContact();
-        common.addPatientContact();
-        common.addAdminContact();
-        common.addBillingContact();
+//        common.addPayerContact();
+//        common.addPatientContact();
+//        common.addAdminContact();
+//        common.addBillingContact();
         common.nextButton();
     }
 
     @And("I fill Med Plan In-Network section with new contacts details")
     public void iFillMedPlanInNetworkSectionWithNewContactsDetails() {
-        common.addInNetworkContact();
-        common.addPBMContact();
+        //common.addInNetworkContact();
+        //common.addPBMContact();
         addMedical.medInNetworkValues();
     }
 
     @And("I fill Med Plan Out-Network section with new contacts details")
     public void iFillMedPlanOutNetworkSectionWithNewContactsDetails() {
-        common.addOutNetworkContact();
+        //common.addOutNetworkContact();
         addMedical.medOutNetworkValues();
     }
 
