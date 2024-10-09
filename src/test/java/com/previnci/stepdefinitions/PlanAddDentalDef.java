@@ -1,13 +1,12 @@
 package com.previnci.stepdefinitions;
 
 import com.previnci.core.PageManager;
-import com.previnci.pages.BasePage;
-import com.previnci.pages.CommonlyUsed;
+import com.previnci.pages.UtilityMethods;
+import com.previnci.pages.CommonCode;
 import com.previnci.pages.PlanAddDental;
 import com.previnci.pages.PlanAddMedical;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
 import org.openqa.selenium.WebElement;
 
 import java.time.Duration;
@@ -16,8 +15,8 @@ import java.time.Duration;
 public class PlanAddDentalDef {
     private final PageManager pageManager = PageManager.getInstance();
     private final PlanAddDental addDental = this.pageManager.getPageGenerator().getInstance(PlanAddDental.class);
-    private final CommonlyUsed common = this.pageManager.getPageGenerator().getInstance(CommonlyUsed.class);
-    private final BasePage basePage = this.pageManager.getPageGenerator().getInstance(BasePage.class);
+    private final CommonCode common = this.pageManager.getPageGenerator().getInstance(CommonCode.class);
+    private final UtilityMethods utilityMethods = this.pageManager.getPageGenerator().getInstance(UtilityMethods.class);
     private final PlanAddMedical addMedical = this.pageManager.getPageGenerator().getInstance(PlanAddMedical.class);
 
     @And("I choose type Dental and plan design Create New Plan")
@@ -55,8 +54,8 @@ public class PlanAddDentalDef {
     public void iShouldSeeADenAddPlanConfirmationMessage() {
         String planNames = addDental.getGeneratedDenPlanName();
         WebElement actualToast = addDental.verifyAddDenPlanToast();
-        basePage.waitForElementToBeVisible(actualToast, Duration.ofSeconds(15));
-        basePage.assertTextEquals(actualToast, planNames + " has been added successfully.");
+        utilityMethods.waitForElementToBeVisible(actualToast, Duration.ofSeconds(15));
+        utilityMethods.assertTextEquals(actualToast, planNames + " has been added successfully.");
 
     }
 
@@ -64,7 +63,7 @@ public class PlanAddDentalDef {
     public void theNewDenPlanShouldBeListedInThePlanListSection() {
         String planName = addDental.getGeneratedDenPlanName();
         WebElement planListed = addDental.verifyDenListedPlan();
-        basePage.assertTextEquals(planListed,planName);
+        utilityMethods.assertTextEquals(planListed,planName);
 
     }
 }

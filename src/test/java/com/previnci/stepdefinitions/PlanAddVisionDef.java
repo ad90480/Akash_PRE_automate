@@ -1,12 +1,11 @@
 package com.previnci.stepdefinitions;
 
 import com.previnci.core.PageManager;
-import com.previnci.pages.BasePage;
-import com.previnci.pages.CommonlyUsed;
+import com.previnci.pages.UtilityMethods;
+import com.previnci.pages.CommonCode;
 import com.previnci.pages.PlanAddVision;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
 import org.openqa.selenium.WebElement;
 
 import java.time.Duration;
@@ -14,8 +13,8 @@ import java.time.Duration;
 public class PlanAddVisionDef {
     private final PageManager pageManager = PageManager.getInstance();
     private final PlanAddVision addVision = pageManager.getPageGenerator().getInstance(PlanAddVision.class);
-    private final CommonlyUsed common = pageManager.getPageGenerator().getInstance(CommonlyUsed.class);
-    private final BasePage basePage = pageManager.getPageGenerator().getInstance(BasePage.class);
+    private final CommonCode common = pageManager.getPageGenerator().getInstance(CommonCode.class);
+    private final UtilityMethods utilityMethods = pageManager.getPageGenerator().getInstance(UtilityMethods.class);
 
     @And("I choose type Vision and plan design Create New Plan")
     public void iChooseTypeVisAndPlanDesignCreateNewPlan() {
@@ -51,14 +50,14 @@ public class PlanAddVisionDef {
     public void iShouldSeeAVisAddPlanConfirmationMessage() {
         String planNames = addVision.getGeneratedVisPlanName();
         WebElement actualToast = addVision.verifyAddVisPlanToast();
-        basePage.waitForElementToBeVisible(actualToast, Duration.ofSeconds(15));
-        basePage.assertTextEquals(actualToast, planNames + " has been added successfully.");
+        utilityMethods.waitForElementToBeVisible(actualToast, Duration.ofSeconds(15));
+        utilityMethods.assertTextEquals(actualToast, planNames + " has been added successfully.");
     }
 
     @Then("the new Vis plan should be listed in the Plan List section")
     public void theNewVisPlanShouldBeListedInThePlanListSection() {
         String planName = addVision.getGeneratedVisPlanName();
         WebElement planListed = addVision.verifyVisListedPlan();
-        basePage.assertTextEquals(planListed, planName);
+        utilityMethods.assertTextEquals(planListed, planName);
     }
 }

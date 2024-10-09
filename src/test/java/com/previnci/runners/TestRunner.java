@@ -15,8 +15,9 @@ import org.junit.runner.RunWith;
         dryRun = false,
         monochrome = true,
         snippets = CucumberOptions.SnippetType.CAMELCASE,
-        tags = "@AddMedicalPlan",
+        tags = "@test4",
         stepNotifications = true
 )
 public class TestRunner {
 }
+//src/test/resources/features/AdminLogin.feature

@@ -5,12 +5,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
-public class PlanAddMedical extends CommonlyUsed {
+public class PlanAddMedical extends CommonCode {
     @FindBy(how = How.XPATH, using = "//input[@placeholder=\"Search\"]")
     private WebElement searchForGroup;
-    @FindBy(how = How.XPATH, using = "//span[contains(text(), 'Silicon Valley')]")
+    @FindBy(how = How.XPATH, using = "//span[contains(text(), 'Group 07-10-2024')]")
     private WebElement clickAppleGroup;
-    @FindBy(how = How.XPATH, using = "//span[contains(text(), 'Silicon Valley, Inc.')]")
+    @FindBy(how = How.XPATH, using = "//span[contains(text(), 'Group 07-10-2024')]")
     private WebElement groupsHighlight;
     @FindBy(how = How.XPATH, using = "//div[text()='Medical']")
     private WebElement clickMedicalType;

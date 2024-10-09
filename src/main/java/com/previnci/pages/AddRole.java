@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
-public class AddRole extends BasePage {
+public class AddRole extends UtilityMethods {
     @FindBy(how = How.XPATH,using ="(//span[.='Roles'])[1]")
     private  WebElement clickrolemodule;
     @FindBy(how = How.XPATH,using ="//previnci-buttons[@label=\"Add Role\"]")

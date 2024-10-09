@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
-public class PlanAddDental extends CommonlyUsed {
+public class PlanAddDental extends CommonCode {
     @FindBy(how = How.XPATH, using = "//div[text()='Dental']")
     private WebElement clickDentalType;
     @FindBy(how = How.XPATH, using = "//div[text()='Create New Plan']")
@@ -54,9 +54,9 @@ public class PlanAddDental extends CommonlyUsed {
     private WebElement inCoveredServiceTypeValue;
     @FindBy(how = How.XPATH, using = "(((//div[@class=\"modal-content-container\"])//a[.='Coinsurance Percentage']))[2]")
     private WebElement outCoveredServiceTypeValue;
-    @FindBy(how = How.XPATH, using = "(//input[@placeholder=\"Member portion %\"])[1]")
+    @FindBy(how = How.XPATH, using = "(//input[@placeholder=\"Value\"])[1]")
     private WebElement inMemberPortion;
-    @FindBy(how = How.XPATH, using = "(//input[@placeholder=\"Member portion %\"])[2]")
+    @FindBy(how = How.XPATH, using = "(//input[@placeholder=\"Value\"])[2]")
     private WebElement outMemberPortion;
     @FindBy(how = How.XPATH, using = "(//span[.='Done '])[1]")
     private WebElement inAssignPopupDone;
