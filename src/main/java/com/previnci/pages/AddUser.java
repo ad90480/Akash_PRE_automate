@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
-public class AddUser extends BasePage {
+public class AddUser extends UtilityMethods {
 
     @FindBy(how = How.XPATH, using = "(//span[@class=\"pvt-nav-link-text nested-title-text\"])[7]")//Use this XPATH if fails(//span[.='Users'])[1]
     private WebElement usermodule;

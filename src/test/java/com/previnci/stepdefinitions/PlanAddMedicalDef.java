@@ -1,8 +1,8 @@
 package com.previnci.stepdefinitions;
 
 import com.previnci.core.PageManager;
-import com.previnci.pages.BasePage;
-import com.previnci.pages.CommonlyUsed;
+import com.previnci.pages.UtilityMethods;
+import com.previnci.pages.CommonCode;
 import com.previnci.pages.PlanAddMedical;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -14,12 +14,12 @@ import java.time.Duration;
 public class PlanAddMedicalDef {
     private final PageManager pageManager = PageManager.getInstance();
     private final PlanAddMedical addMedical = this.pageManager.getPageGenerator().getInstance(PlanAddMedical.class);
-    private final CommonlyUsed common = this.pageManager.getPageGenerator().getInstance(CommonlyUsed.class);
-    private final BasePage basePage = this.pageManager.getPageGenerator().getInstance(BasePage.class);
+    private final CommonCode common = this.pageManager.getPageGenerator().getInstance(CommonCode.class);
+    private final UtilityMethods utilityMethods = this.pageManager.getPageGenerator().getInstance(UtilityMethods.class);
 
     @When("I navigate to the Plan Details Page")
     public void iNavigateToThePlanDetailsPage() {
-        addMedical.searchAndSelectGroup("Silicon");
+//        addMedical.searchAndSelectGroup("Silicon");
         common.addNewButton();
         common.clickPolicyAndPlansMenu();
         common.addNewButton();
@@ -70,15 +70,15 @@ public class PlanAddMedicalDef {
     public void iShouldSeeAMedAddPlanConfirmationMessage() {
         String planNames = addMedical.getGeneratedPlanName();
         WebElement actualToast = addMedical.verifyAddMedPlanToast();
-        basePage.waitForElementToBeVisible(actualToast, Duration.ofSeconds(15));
-        basePage.assertTextEquals(actualToast, planNames + " has been added successfully.");
+        utilityMethods.waitForElementToBeVisible(actualToast, Duration.ofSeconds(15));
+        utilityMethods.assertTextEquals(actualToast, planNames + " has been added successfully.");
     }
 
     @Then("the new Med plan should be listed in the Plan List section")
     public void theNewMedPlanShouldBeListedInThePlanListSection() throws InterruptedException {
         String planName = addMedical.getGeneratedPlanName();
         WebElement planListed = addMedical.verifyListedPlan();
-        basePage.assertTextEquals(planListed, planName);
+        utilityMethods.assertTextEquals(planListed, planName);
     }
 
 }

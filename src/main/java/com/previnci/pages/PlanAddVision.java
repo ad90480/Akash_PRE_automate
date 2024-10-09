@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
-public class PlanAddVision extends CommonlyUsed {
+public class PlanAddVision extends CommonCode {
     @FindBy(how = How.XPATH, using = "//div[text()='Vision']")
     private WebElement clickVisionType;
     @FindBy(how = How.XPATH, using = "//div[text()='Create New Plan']")

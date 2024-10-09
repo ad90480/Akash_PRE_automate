@@ -2,7 +2,7 @@ package com.previnci.stepdefinitions;
 
 import com.previnci.core.PageManager;
 import com.previnci.pages.AddTenant;
-import com.previnci.pages.CommonlyUsed;
+import com.previnci.pages.CommonCode;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -10,7 +10,7 @@ import io.cucumber.java.en.When;
 public class AdminAddTenantDef {
     private final PageManager pageManager = PageManager.getInstance();
     private AddTenant addtenant = this.pageManager.getPageGenerator().getInstance(AddTenant.class);
-    private CommonlyUsed common = this.pageManager.getPageGenerator().getInstance(CommonlyUsed.class);
+    private CommonCode common = this.pageManager.getPageGenerator().getInstance(CommonCode.class);
 
     @And("I navigate to the tenant module and open add tenant form")
     public void iNavigateToTheTenantModuleAndOpenAddTenantForm() {

@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
-public class CommonlyUsed extends BasePage {
+public class CommonCode extends UtilityMethods {
     @FindBy(how = How.XPATH, using = "//button[contains(., 'Submit')]")
     private WebElement submitButton;
     @FindBy(how = How.XPATH, using = "//button[contains(., 'next')]")
@@ -58,7 +58,7 @@ public class CommonlyUsed extends BasePage {
     @FindBy(how = How.XPATH, using = "(//div[@class=\"pv-accordion-header\"])[1]")
     private WebElement outNetworkContactAccordion;
 
-    public CommonlyUsed(WebDriver driver) {
+    public CommonCode(WebDriver driver) {
         super(driver);
     }
 
