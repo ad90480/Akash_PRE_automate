@@ -290,12 +290,6 @@ public class UtilityMethods extends PageGenerator {
         }
     }
 
-    public void assertElementDisplayed(WebElement element) {
-        createDefaultFluentWait().until(ExpectedConditions.elementToBeClickable(element));
-        Assert.assertTrue("Element is not displayed", ElementUtils.isElementDisplayed(element));
-        System.out.println(element);
-    }
-
     public void assertTextEquals(WebElement element, Object expected) {
         String actualText = this.getText(element);
         String expectedText;
@@ -307,7 +301,6 @@ public class UtilityMethods extends PageGenerator {
         } else {
             throw new IllegalArgumentException("Expected text should be either WebElement or String");
         }
-
         Assert.assertEquals("Text does not match", expectedText, actualText);
         System.out.println(actualText);
     }

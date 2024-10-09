@@ -15,9 +15,9 @@ import org.junit.runner.RunWith;
         dryRun = false,
         monochrome = true,
         snippets = CucumberOptions.SnippetType.CAMELCASE,
-        tags = "@test4",
+        tags = "@AdminLoginTest",
         stepNotifications = true
 )
 public class TestRunner {
 }
-//src/test/resources/features/AdminLogin.feature
+//src/test/resources/features/TPAAdminLogin.feature
