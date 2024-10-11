@@ -32,20 +32,21 @@ public class UtilityMethods extends PageGenerator {
 
     private static final Duration DEFAULT_TIMEOUT = Duration.ofSeconds(20);
     private static final Duration POLLING_INTERVAL = Duration.ofSeconds(1);
+
     ResourceBundle rb = ResourceBundle.getBundle("config");
     ConfigReader configReader = new ConfigReader();
     Properties prop = configReader.init_prop();
-
 
     public UtilityMethods(WebDriver driver) {
         super(driver);
     }
 
-    public static void highlightElement(WebDriver driver, WebElement element, String borderColor, String textColor) {
+    public void highlightElement(WebDriver driver, WebElement element, String borderColor, String textColor) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView(true);", element);
         js.executeScript("arguments[0].setAttribute('style', 'border: 8px solid " + borderColor + "; color: " + textColor + ";');", element);
-
     }
+
 
     // Method to read usernames and passwords from an Excel file
     public static List<List<String>> readUserCredentialsFromExcel(String filePath, String sheetName) throws IOException {
@@ -87,8 +88,8 @@ public class UtilityMethods extends PageGenerator {
         return tableData;
     }
 
-    public static boolean isValueListedInTable(WebDriver driver, By tableLocator, String value) {
-        WebElement table = driver.findElement(tableLocator);
+    public boolean isValueListedInTable(WebDriver driver, WebElement element, String value) {
+        WebElement table = driver.findElement((By) element);
         List<WebElement> rows = table.findElements(By.tagName("tr"));
         for (WebElement row : rows) {
             List<WebElement> cells = row.findElements(By.tagName("td"));

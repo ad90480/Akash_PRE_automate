@@ -30,6 +30,8 @@ public class TPAAdminLogin extends CommonCode {
     @FindBy(how = How.XPATH, using = "//span[@class=\"pvt-toast toast toast-default default\"]")
     private WebElement forgetPassMailToastMsg;
 
+
+
     public TPAAdminLogin(WebDriver driver) {
         super(driver);
     }
@@ -75,10 +77,5 @@ public class TPAAdminLogin extends CommonCode {
     public String forgetPassMailToastMsg() {
         return getText(this.forgetPassMailToastMsg);
     }
-    //    public void selectNavBarMenuByValue() {
-//        List<List<String>> tableData = printTableContents(driver, By.xpath("//tbody"), true);
-//        boolean valueFound = tableData.stream().flatMap(List::stream).anyMatch(cell -> cell.equals("Silicon Valley, Inc."));
-//        Assert.assertTrue("Table does not contain the expected value.", valueFound);
-//
-//    }
+
 }

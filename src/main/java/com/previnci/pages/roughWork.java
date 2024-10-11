@@ -360,3 +360,125 @@
 //int expectedColumnCount = 3;
 //int actualColumnCount = tableData.get(0).size();
 //        Assert.assertEquals(actualColumnCount, expectedColumnCount, "Column count in the first row does not match expected value.");
+
+
+
+
+
+
+
+//10-10-2024
+//package com.previnci.pages;
+//
+//import org.openqa.selenium.By;
+//import org.openqa.selenium.WebDriver;
+//import org.openqa.selenium.WebElement;
+//import org.openqa.selenium.support.FindBy;
+//import org.openqa.selenium.support.How;
+//import org.testng.Assert;
+//
+//import java.util.List;
+//
+//public class TPAAddGroup extends CommonCode {
+//
+//    @FindBy(how = How.XPATH, using = "//td[text()='Group Name']/following-sibling::td//input")
+//    private WebElement groupNameField;
+//    @FindBy(how = How.XPATH, using = "//td[text()='Group Number']/following-sibling::td//input")
+//    private WebElement groupNumberField;
+//    @FindBy(how = How.XPATH, using = "//td[text()='Policy Term Start Date']/following-sibling::td//input")
+//    private WebElement policyStartDateField;
+//    @FindBy(how = How.XPATH, using = "//td[text()='Policy Term End Date']/following-sibling::td//input\n")
+//    private WebElement policyEndDateField;
+//    @FindBy(how = How.XPATH, using = "//td[text()='First Name']/following-sibling::td//input")
+//    private WebElement primaryFirstNameField;
+//    @FindBy(how = How.XPATH, using = "//td[text()='Last Name']/following-sibling::td//input")
+//    private WebElement primaryLastNameField;
+//    @FindBy(how = How.XPATH, using = "//td[text()='Email']/following-sibling::td//input")
+//    private WebElement primaryEmailField;
+//    @FindBy(how = How.XPATH, using = "//span/strong[@class=\"label-text\"]")
+//    private WebElement confirmationMessage;
+//    //    @FindBy(how = How.XPATH, using = "//tbody/tr/td/div/span[contains(text(),' Test Password Issue ')]")
+////    private WebElement addedGroupInList;
+//    @FindBy(how = How.CSS, using = "tbody.p-element.p-datatable-tbody")
+//    private WebElement addedGroupInList;
+//
+//    public TPAAddGroup(WebDriver driver) {
+//        super(driver);
+//    }
+//
+//    // Method to enter group details
+//    public void enterGroupDetails(String groupName, String groupNumber, String startDate, String endDate) {
+//        writeText(this.groupNameField, groupName + " " + randomNumber(2));
+//        writeText(this.groupNumberField, groupNumber + randomNumber(4));
+//        writeText(this.policyStartDateField, startDate);
+//        writeText(this.policyEndDateField, endDate);
+//    }
+//
+//    // Method to enter primary plan sponsor details
+//    public void enterPrimaryPlanSponsorDetails(String firstName, String lastName, String email) {
+//        writeText(this.primaryFirstNameField, firstName);
+//        writeText(this.primaryLastNameField, lastName);
+//        writeText(this.primaryEmailField, firstName + "_" + lastName + randomNumber(2) + email);
+//    }
+//
+//    // Method to get confirmation message
+//    public String getConfirmationMessage() {
+//        return getText(this.confirmationMessage);
+//    }
+//
+//    // Method to verify that the group is added in the list
+//    public void isGroupAddedInList() {
+//        List<WebElement> rows = addedGroupInList.findElements(By.tagName("tr"));
+//
+//        // Loop through the rows and columns to verify data
+//        for (int i = 0; i < rows.size(); i++) {
+//            WebElement row = rows.get(i);
+//            List<WebElement> columns = row.findElements(By.tagName("td"));
+//
+//            // Fetch data from each cell and verify (Example)
+//            String companyName = columns.get(0).getText();
+//            String status = columns.get(1).getText();
+//            String groupNumber = columns.get(2).getText();
+//            String subscribers = columns.get(3).getText();
+//            String state = columns.get(4).getText();
+//            String issueDate = columns.get(5).getText();
+//            String policyStatus = columns.get(6).getText();
+//
+//            // Assert the values based on expected data (for demo, replace with your expected values)
+//            if (i == 0) {
+//                Assert.assertEquals(companyName, "Silicon Valley, Inc.");
+//                Assert.assertEquals(status, "ACTIVE");
+//                Assert.assertEquals(groupNumber, "SIL2024");
+//                Assert.assertEquals(subscribers, "4");
+//                Assert.assertEquals(state, "CA");
+//                Assert.assertEquals(issueDate, "06/19/2024");
+//                Assert.assertEquals(policyStatus, "Policy Activated");
+//            } else if (i == 1) {
+//                Assert.assertEquals(companyName, "Valley Partners");
+//                Assert.assertEquals(status, "ACTIVE");
+//                Assert.assertEquals(groupNumber, "VAL2024");
+//                Assert.assertEquals(subscribers, "5");
+//                Assert.assertEquals(state, "CA");
+//                Assert.assertEquals(issueDate, "06/18/2024");
+//                Assert.assertEquals(policyStatus, "Policy Activated");
+//            }
+////    public void isGroupAddedInListHighlight() {
+////
+////        scrollElementIntoView(this.addedGroupInList);
+////        highlightElement(driver, this.addedGroupInList, "blue", "green");
+////    }
+//        }
+//    }
+//}
+////validation- previnci-input[@ng-reflect-appearance="validate"]
+////Toast msg- //span/strong[@class="label-text"]
+//
+////public void selectNavBarMenuByValue() {
+////    List<List<String>> tableData = printTableContents(driver, By.xpath("//tbody"), true);
+////    boolean valueFound = tableData.stream().flatMap(List::stream).anyMatch(cell -> cell.equals("Silicon Valley, Inc."));
+////    Assert.assertTrue("Table does not contain the expected value.", valueFound);
+////
+////}
+//
+//
+//

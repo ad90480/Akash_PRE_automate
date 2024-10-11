@@ -1,5 +1,5 @@
 @gui
-@AdminLoginTest
+@TPAAdminLoginTest
 Feature: Login Functionality
 
   Scenario Outline: Successful Login with valid credentials
@@ -20,7 +20,7 @@ Feature: Login Functionality
 
     Examples:
       | username  | password      | message                                |
-      | StanLee1  | StanLee2024   | Your username or password is incorrect  |
+      | StanLee1  | StanLee2024   | Your username or password is incorrects  |
       | StanLee1  | StanLee2024!  | Your username or password is incorrect  |
       | StanLee   | StanLee2024   | Your username or password is incorrect  |
 

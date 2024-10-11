@@ -3,7 +3,7 @@ Feature: Add Medical Plan
 
   @AddMedicalPlan
   Scenario Outline: Successfully add a new medical plan with all new contacts
-    Given I am logged in as an admin
+    Given the user is logged in as an admin
     When I navigate to the Plan Details Page
     And I choose type Medical and plan design Create New Plan
     And I click on the next button
