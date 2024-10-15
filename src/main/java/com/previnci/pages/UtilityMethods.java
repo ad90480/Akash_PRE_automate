@@ -11,6 +11,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.Assert;
 import org.openqa.selenium.*;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -21,10 +22,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Properties;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 
@@ -40,13 +38,6 @@ public class UtilityMethods extends PageGenerator {
     public UtilityMethods(WebDriver driver) {
         super(driver);
     }
-
-    public void highlightElement(WebDriver driver, WebElement element, String borderColor, String textColor) {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].scrollIntoView(true);", element);
-        js.executeScript("arguments[0].setAttribute('style', 'border: 8px solid " + borderColor + "; color: " + textColor + ";');", element);
-    }
-
 
     // Method to read usernames and passwords from an Excel file
     public static List<List<String>> readUserCredentialsFromExcel(String filePath, String sheetName) throws IOException {
@@ -86,6 +77,90 @@ public class UtilityMethods extends PageGenerator {
             }
         }
         return tableData;
+    }
+
+    // Method to open a new tab and navigate to a URL, closing the previous tab
+    public void openNewTab(WebDriver driver, String url, boolean closePreviousTab) {
+        String previousTab = driver.getWindowHandle();
+        ((JavascriptExecutor) driver).executeScript("window.open()");
+        switchToLastTab(driver);
+        driver.get(url);
+
+        if (closePreviousTab && driver.getWindowHandles().size() > 1) {
+            driver.switchTo().window(previousTab);
+            driver.close();
+        }
+        switchToLastTab(driver);  // Ensure the switch to the last tab
+    }
+
+    // Method to switch to the previous tab (the first tab)
+    public void switchToPreviousTab(WebDriver driver) {
+        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
+        if (!tabs.isEmpty() && tabs.size() > 1) {
+            driver.switchTo().window(tabs.get(0));  // Switch to first tab
+        } else {
+            System.out.println("There is only one tab open.");
+        }
+    }
+
+    // Method to switch to the last opened tab (helper method)
+    private void switchToLastTab(WebDriver driver) {
+        ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
+        if (!tabs.isEmpty()) {
+            driver.switchTo().window(tabs.get(tabs.size() - 1));
+        } else {
+            System.out.println("No tabs available.");
+        }
+    }
+
+    // Method to switch to a new window (or tab) and optionally return to the original one
+    public void switchToNewWindow(WebDriver driver, boolean returnToOriginal) {
+        String originalWindow = driver.getWindowHandle();
+        Set<String> allWindows = driver.getWindowHandles();
+
+        for (String windowHandle : allWindows) {
+            if (!windowHandle.equals(originalWindow)) {
+                driver.switchTo().window(windowHandle);
+                System.out.println("New window/tab title: " + driver.getTitle());
+                if (returnToOriginal) {
+                    driver.switchTo().window(originalWindow);
+                }
+                break;
+            }
+        }
+    }
+
+    // Method to switch to a window by its title
+    public void switchToWindowByTitle(WebDriver driver, String expectedTitle, boolean returnToOriginal) {
+        String originalWindow = driver.getWindowHandle();
+        Set<String> allWindows = driver.getWindowHandles();
+        boolean found = false;
+
+        for (String windowHandle : allWindows) {
+            driver.switchTo().window(windowHandle);
+            String currentWindowTitle = driver.getTitle();
+
+            if (currentWindowTitle.equals(expectedTitle)) {
+                System.out.println("Switched to the window with title: " + currentWindowTitle);
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            System.out.println("Window with title '" + expectedTitle + "' not found.");
+        }
+
+        if (returnToOriginal) {
+            driver.switchTo().window(originalWindow);
+        }
+    }
+
+
+    public void highlightElement(WebDriver driver, WebElement element, String borderColor, String textColor) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView(true);", element);
+        js.executeScript("arguments[0].setAttribute('style', 'border: 8px solid " + borderColor + "; color: " + textColor + ";');", element);
     }
 
     public boolean isValueListedInTable(WebDriver driver, WebElement element, String value) {
@@ -206,13 +281,11 @@ public class UtilityMethods extends PageGenerator {
     }
 
     public void waitForElementToBeVisible(WebElement element, Duration timeout) {
-        new WebDriverWait(driver, timeout)
-                .until(ExpectedConditions.visibilityOf(element));
+        new WebDriverWait(driver, timeout).until(ExpectedConditions.visibilityOf(element));
     }
 
     public void waitForElementToBeClickable(WebElement element, Duration timeout) {
-        new WebDriverWait(driver, timeout)
-                .until(ExpectedConditions.elementToBeClickable(element));
+        new WebDriverWait(driver, timeout).until(ExpectedConditions.elementToBeClickable(element));
     }
 
     public void waitForFixedTime(long milliseconds) {
@@ -324,6 +397,17 @@ public class UtilityMethods extends PageGenerator {
             System.out.println("Assertion Passed: ");
         } catch (AssertionError e) {
             System.err.println("Assertion Failed: ");
+            throw e;
+        }
+        System.out.println(actual);
+    }
+
+    public void assertTrueWithMessage(boolean condition, String expectedMessage) {
+        try {
+            Assert.assertTrue(expectedMessage, condition);
+            System.out.println("Assertion Passed: " + expectedMessage);
+        } catch (AssertionError e) {
+            System.err.println("Assertion Failed: " + expectedMessage);
             throw e;
         }
     }

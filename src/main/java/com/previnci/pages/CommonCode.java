@@ -18,6 +18,11 @@ public class CommonCode extends UtilityMethods {
     private WebElement addNewButton;
     @FindBy(how = How.XPATH, using = "//button/span[contains(text(), 'cancel')]")
     private WebElement cancelButton;
+    //LogOut
+    @FindBy(how = How.XPATH, using = "//span[@class=\"pvt-nav-link-text\"]")  //ul/li/a/span[contains(text(), 'Stan Lee')]
+    private WebElement logOut;
+    @FindBy(how = How.XPATH, using = "(//span[@class=\"nav-submenu-link\"])[2]")
+    private WebElement loggedOut;
 
     // Nav-Bar Menus
     @FindBy(how = How.XPATH, using = "//ul/li/a/span[contains(text(), 'Groups')]")
@@ -94,6 +99,10 @@ public class CommonCode extends UtilityMethods {
     private WebElement pbmContactAccordion;
     @FindBy(how = How.XPATH, using = "(//div[@class=\"pv-accordion-header\"])[1]")
     private WebElement outNetworkContactAccordion;
+
+
+
+
 
     public CommonCode(WebDriver driver) {
         super(driver);
@@ -180,6 +189,11 @@ public class CommonCode extends UtilityMethods {
 
     public void clickBackToListMenu() {
         click(this.backToList);
+    }
+
+    public void userLoggedOut() {
+        click(this.logOut);
+        click(this.loggedOut);
     }
 
     public void addPayerContact() {
