@@ -185,4 +185,9 @@ public class PlanAddMedical extends CommonCode {
     public WebElement verifyListedPlan(){
         return medPlanListedTable;
     }
+    //public void selectNavBarMenuByValue() {
+//    List<List<String>> tableData = printTableContents(driver, By.xpath("//tbody"), true);
+//    boolean valueFound = tableData.stream().flatMap(List::stream).anyMatch(cell -> cell.equals("Silicon Valley, Inc."));
+//    Assert.assertTrue("Table does not contain the expected value.", valueFound);
+
 }

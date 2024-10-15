@@ -5,7 +5,7 @@ Feature: Add Tenant
 
   @test2
   Scenario Outline: Admin add tenant
-    Given I am logged in as an admin
+    Given the user is logged in as an admin
     And I navigate to the tenant module and open add tenant form
     When I enter the following details '<Organization Name>', '<Street Address>', '<City>', '<Postal Code>', '<Phone>', '<Tax ID>','<SIC code>'
     Then I click the submit button

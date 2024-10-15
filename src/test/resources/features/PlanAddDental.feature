@@ -3,7 +3,7 @@ Feature: Add Dental Plan
 
   @AddDentalPlan
   Scenario Outline: Successfully add a new dental plan with all new contacts
-    Given I am logged in as an admin
+    Given the user is logged in as an admin
     When I navigate to the Plan Details Page
     And I choose type Dental and plan design Create New Plan
     And I click on the next button

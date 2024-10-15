@@ -1,7 +1,7 @@
 package com.previnci.core;
 
 import com.previnci.constants.DriverType;
-import io.github.bonigarcia.wdm.WebDriverManager;
+//import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
@@ -24,7 +24,7 @@ public class DriverSupplier {
     // ChromeDriver Supplier
     private static final Supplier<WebDriver> chromeDriverSupplier = () -> {
         ChromeOptions options = new ChromeOptions();
-        WebDriverManager.chromedriver().setup();
+//        WebDriverManager.chromedriver().setup();
         options.addArguments("--start-maximized");
         options.addArguments("--ignore-certificate-errors");
         options.addArguments("--disable-dev-shm-usage");
@@ -42,7 +42,7 @@ public class DriverSupplier {
     // FirefoxDriver Supplier
     private static final Supplier<WebDriver> firefoxDriverSupplier = () -> {
         FirefoxOptions options = new FirefoxOptions();
-        WebDriverManager.firefoxdriver().setup();
+//        WebDriverManager.firefoxdriver().setup();
         options.addArguments("--start-maximized"); // Start Firefox maximized
         options.addArguments("--ignore-certificate-errors"); // Similar to Chrome's behavior
         options.addArguments("--disable-dev-shm-usage"); // Useful in containerized environments
@@ -56,7 +56,7 @@ public class DriverSupplier {
     // EdgeDriver Supplier
     private static final Supplier<WebDriver> edgeDriverSupplier = () -> {
         EdgeOptions options = new EdgeOptions();
-        WebDriverManager.edgedriver().setup();
+//        WebDriverManager.edgedriver().setup();
         options.addArguments("--start-maximized"); // Start Edge maximized
         options.addArguments("--ignore-certificate-errors"); // Ignore certificate errors
         options.addArguments("--disable-dev-shm-usage"); // Useful in containerized environments

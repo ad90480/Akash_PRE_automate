@@ -6,16 +6,58 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
 public class CommonCode extends UtilityMethods {
-    @FindBy(how = How.XPATH, using = "//button[contains(., 'Submit')]")
+
+    //Buttons
+    @FindBy(how = How.XPATH, using = "//button/span[contains(text(), 'Submit')]")
     private WebElement submitButton;
+    @FindBy(how = How.XPATH, using = "//button/span[contains(text(), 'Save')]")
+    private WebElement saveButton;
     @FindBy(how = How.XPATH, using = "//button[contains(., 'next')]")
     private WebElement nextButton;
-    @FindBy(how = How.XPATH, using = "//previnci-buttons[@label=\"Add new\"]")//button[contains(., 'Add new')]
+    @FindBy(how = How.XPATH, using = "//button/span[contains(text(), 'Add New')]")
     private WebElement addNewButton;
-    @FindBy(how = How.XPATH, using = "//previnci-buttons[@ng-reflect-label=\"Cancel\"]")
+    @FindBy(how = How.XPATH, using = "//button/span[contains(text(), 'cancel')]")
     private WebElement cancelButton;
-    @FindBy(how = How.XPATH, using = "//li/a/span[text()='Policy and Plans']")
-    private WebElement policyAndPlans;
+    //LogOut
+    @FindBy(how = How.XPATH, using = "//span[@class=\"pvt-nav-link-text\"]")  //ul/li/a/span[contains(text(), 'Stan Lee')]
+    private WebElement logOut;
+    @FindBy(how = How.XPATH, using = "(//span[@class=\"nav-submenu-link\"])[2]")
+    private WebElement loggedOut;
+
+    // Nav-Bar Menus
+    @FindBy(how = How.XPATH, using = "//ul/li/a/span[contains(text(), 'Groups')]")
+    private WebElement groupsMenu;
+    @FindBy(how = How.XPATH, using = "//ul/li/a/span[contains(text(), 'Members')]")
+    private WebElement membersMenu;
+    @FindBy(how = How.XPATH, using = "//ul/li/a/span[contains(text(), 'Tickets')]")
+    private WebElement ticketsMenu;
+    @FindBy(how = How.XPATH, using = "//ul/li/a/span[contains(text(), 'Recommended Benefits Library')]")
+    private WebElement benefitLibMenu;
+    @FindBy(how = How.XPATH, using = "//ul/li/a/span[contains(text(), 'File Services')]")
+    private WebElement fileServicesMenu;
+    @FindBy(how = How.XPATH, using = "//ul/li/a/span[contains(text(), 'Standard Plan Library')]")
+    private WebElement standardPlanMenu;
+    @FindBy(how = How.XPATH, using = "//ul/li/a/span[contains(text(), 'Data Upload')]")
+    private WebElement dataUploadMenu;
+    @FindBy(how = How.XPATH, using = "//ul/li/a/span[contains(text(), 'Files')]")
+    private WebElement filesMenu;
+    @FindBy(how = How.XPATH, using = "//ul/li/a/span[contains(text(), 'Advisors')]")
+    private WebElement advisorsMenu;
+    @FindBy(how = How.XPATH, using = "//ul/li/a/span[contains(text(), 'Settings')]")
+    private WebElement settingsMenu;
+    @FindBy(how = How.XPATH, using = "//ul/li/a/span[contains(text(), 'Overview')]")
+    private WebElement overviewMenu;
+    @FindBy(how = How.XPATH, using = "//ul/li/a/span[contains(text(), 'Details')]")
+    private WebElement detailsMenu;
+    @FindBy(how = How.XPATH, using = "//ul/li/a/span[contains(text(), 'Policy and Plans')]")
+    //li/a/span[text()='Policy and Plans']
+    private WebElement policyAndPlansMenu;
+    @FindBy(how = How.XPATH, using = "//ul/li/a/span[contains(text(), 'Claims')]")
+    private WebElement claimsMenu;
+    @FindBy(how = How.XPATH, using = "//ul/li/a/span[contains(text(), 'Back to ')]")
+    private WebElement backToList;
+
+
     //Add Plan Contacts:
     @FindBy(how = How.XPATH, using = "(//div[@class=\"pv-accordion-header\"])[1]")
     private WebElement payerContactAccordion;
@@ -58,12 +100,21 @@ public class CommonCode extends UtilityMethods {
     @FindBy(how = How.XPATH, using = "(//div[@class=\"pv-accordion-header\"])[1]")
     private WebElement outNetworkContactAccordion;
 
+
+
+
+
     public CommonCode(WebDriver driver) {
         super(driver);
     }
 
+    // buttons method
     public void submitButton() {
         super.click(this.submitButton);
+    }
+
+    public void saveButton() {
+        super.click(this.saveButton);
     }
 
     public void nextButton() {
@@ -79,8 +130,70 @@ public class CommonCode extends UtilityMethods {
 
     }
 
+    //Na-Bar Menu Click
+    public void clickGroupsMenu() {
+        click(this.groupsMenu);
+    }
+
+    public void clickMembersMenu() {
+        click(this.membersMenu);
+    }
+
+    public void clickTicketsMenu() {
+        click(this.ticketsMenu);
+    }
+
+    public void clickBenefitLibMenu() {
+        click(this.benefitLibMenu);
+    }
+
+    public void clickFileServicesMenu() {
+        click(this.fileServicesMenu);
+    }
+
+    public void clickStandardPlanMenu() {
+        click(this.standardPlanMenu);
+    }
+
+    public void clickDataUploadMenu() {
+        click(this.dataUploadMenu);
+    }
+
+    public void clickFilesMenu() {
+        click(this.filesMenu);
+    }
+
+    public void clickAdvisorsMenu() {
+        click(this.advisorsMenu);
+    }
+
+    public void clickSettingsMenu() {
+        click(this.settingsMenu);
+    }
+
+    public void clickOverviewMenu() {
+        click(this.overviewMenu);
+    }
+
+    public void clickDetailsMenu() {
+        click(this.detailsMenu);
+    }
+
     public void clickPolicyAndPlansMenu() {
-        click(this.policyAndPlans);
+        click(this.policyAndPlansMenu);
+    }
+
+    public void clickClaimsMenu() {
+        click(this.claimsMenu);
+    }
+
+    public void clickBackToListMenu() {
+        click(this.backToList);
+    }
+
+    public void userLoggedOut() {
+        click(this.logOut);
+        click(this.loggedOut);
     }
 
     public void addPayerContact() {
@@ -156,7 +269,7 @@ public class CommonCode extends UtilityMethods {
         click(pbmContactAccordion);
         click(addNewContactButton);
         writeText(vendorName, "PBM Contact " + randomNumber(2));
-       // selectOptionFromDropdown(vendorTypeDrop, networkType);
+        // selectOptionFromDropdown(vendorTypeDrop, networkType);
         writeText(vendorPhone, "6666666666");
         writeText(vendorEmail, "pbm-contact" + randomNumber(3) + "@testemail.com");
         writeText(vendorStreetAdd, "Street06");
